@@ -26,11 +26,11 @@ foreach($structure as $entity) {
     
     //components
     case "admin": admin($entity); break;
+    case "fieldset": fieldset($entity); break;
     /*
     case "show": show($entity); break;
     case "detail": detail($entity); break;
     case "card": card($entity); break;
-    case "fieldset": fieldset($entity); break;
     case "table": table($entity); break;
     case "grid": grid($entity); break;
     case "unordered-list": unorderedList($entity); break;
@@ -45,13 +45,13 @@ foreach($structure as $entity) {
       dataDefinition($entity);
       //components
       admin($entity);
+      fieldset($entity);
       /*
       search($entity);
       searchCondition($entity);
       searchParams($entity);
       searchOrder($entity);
       show($entity);
-      fieldset($entity);
       table($entity);
       grid($entity);
       unorderedList($entity);
