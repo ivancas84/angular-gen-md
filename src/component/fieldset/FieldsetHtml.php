@@ -300,22 +300,28 @@ class FieldsetHtml extends GenerateFileEntity {
   }
 
   protected function templateErrorStart(Field $field){
-    $this->string .= "        <div *ngIf=\"(" . $field->getName("xxYy") . ".touched || " . $field->getName("xxYy") . ".dirty) && " . $field->getName("xxYy") . ".invalid\">
-";
+    /**
+     * Deprecated
+     */
+    /*$this->string .= "        <div *ngIf=\"(" . $field->getName("xxYy") . ".touched || " . $field->getName("xxYy") . ".dirty) && " . $field->getName("xxYy") . ".invalid\">
+";*/
   }
 
   protected function templateErrorEnd(Field $field){
-    $this->string .= "        </div>
-";
+    /**
+     * Deprecated
+     */
+    /*$this->string .= "        </div>
+";*/
   }
 
   protected function templateErrorIsNotNull(Field $field){
-    if($field->isNotNull()) $this->string .= "          <mat-error *ngIf=\"{$field->getName('xxYy')}.hasError('required')\">Debe completar valor</mat-error>
+    if($field->isNotNull()) $this->string .= "        <mat-error *ngIf=\"{$field->getName('xxYy')}.hasError('required')\">Debe completar valor</mat-error>
 ";
   }
 
   protected function templateErrorIsUnique(Field $field){
-    if($field->isUnique()) $this->string .= "          <mat-error *ngIf=\"{$field->getName('xxYy')}.hasError('notUnique')\">
+    if($field->isUnique()) $this->string .= "        <mat-error *ngIf=\"{$field->getName('xxYy')}.hasError('notUnique')\">
             El valor ya se encuentra utilizado: <a routerLink=\"/{$field->getEntity()->getName("xx-yy")}-admin\" [queryParams]=\"{'{$field->getName()}':{$field->getName('xxYy')}.value}\">Cargar</a>    
           </mat-error>
 ";
