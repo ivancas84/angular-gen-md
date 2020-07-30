@@ -240,6 +240,7 @@ class FieldsetHtml extends GenerateFileEntity {
   }
 
   protected function typeahead(Field $field) {
+    $this->newRow();
     $this->string .= "        <app-input-autocomplete fxFlex=\"auto\" [field]=\"" . $field->getName("xxYy") . "\" [entityName]=\"'" . $field->getEntityRef()->getName() . "'\"></app-input-autocomplete>
 ";
   }
