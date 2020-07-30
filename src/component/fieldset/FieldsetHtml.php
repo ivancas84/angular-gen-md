@@ -163,7 +163,7 @@ class FieldsetHtml extends GenerateFileEntity {
   protected function defecto(Field $field) {
     $this->newRow();
     $this->string .= "      <div fxFlex=\"auto\">
-        <mat-form-field fxFlex=\"auto\">
+        <mat-form-field>
           <mat-label>" . $field->getName("Xx yy") . "</mat-label>
           <input matInput formControlName=\"" . $field->getName() . "\" >
 ";
