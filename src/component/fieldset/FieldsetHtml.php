@@ -73,7 +73,7 @@ class FieldsetHtml extends GenerateFileEntity {
       if(!$field->isAdmin()) continue;
       switch($field->getSubtype()) {
         case "select": $this->select($field); break;
-        case "typeahead": $this->typeahead($field); break;
+        case "typeahead": $this->autocomplete($field); break;
         case "file": $this->file($field); break;
       }
     }
@@ -239,7 +239,7 @@ class FieldsetHtml extends GenerateFileEntity {
 ";
   }
 
-  protected function typeahead(Field $field) {
+  protected function autocomplete(Field $field) {
     $this->newRow();
     $this->string .= "        <app-input-autocomplete fxFlex=\"auto\" [field]=\"" . $field->getName("xxYy") . "\" [entityName]=\"'" . $field->getEntityRef()->getName() . "'\"></app-input-autocomplete>
 ";
