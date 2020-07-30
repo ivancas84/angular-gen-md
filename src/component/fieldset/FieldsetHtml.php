@@ -32,7 +32,7 @@ class FieldsetHtml extends GenerateFileEntity {
 
 
   public function newRow(){
-    if($this->matFieldCount && ($this->matFieldCount % 3 == 0)){
+    if($this->matFieldCount && ($this->matFieldCount % 4 == 0)){
       $this->string .= "    </div>
     <div fxLayout=\"row\"
       fxLayout.xs=\"column\"
@@ -48,18 +48,15 @@ class FieldsetHtml extends GenerateFileEntity {
     foreach($fields as $field) {
       if(!$field->isAdmin()) continue;
       switch ( $field->getSubtype() ) {
-        case "checkbox": $this->checkbox($field); break;
+        //case "checkbox": $this->checkbox($field); break;
         case "date": $this->date($field);  break;
         //case "float": case "integer": case "cuil": case "dni": $this->number($field); break;
-        case "year": $this->year($field); break;
-        case "timestamp":
-          //la administracion de timestamp se encuentra deshabilitada debido a que requiere de formato adicional
-          //$this->timestamp($field);
-        break;
-        case "time": $this->time($field); break;
-        case "select_text": $this->selectValues($field); break;
-        case "select_int": $this->selectValues($field); break;
-        case "textarea": $this->textarea($field); break;
+        //case "year": $this->year($field); break;
+        case "timestamp": continue; break;
+        //case "time": $this->time($field); break;
+        //case "select_text": $this->selectValues($field); break;
+        //case "select_int": $this->selectValues($field); break;
+        //case "textarea": $this->textarea($field); break;
         default: $this->defecto($field); //name, email
       }
     }
@@ -84,27 +81,19 @@ class FieldsetHtml extends GenerateFileEntity {
 
   protected function date(Field $field) {
     $this->newRow();
-    $this->string .= "  <div class=\"form-group form-row\">
-    <label class=\"col-sm-2 col-form-label\">{$field->getName('Xx yy')}</label>
-    <div class=\"col-sm-10\">
-      <div class=\"input-group\">
-        <input class=\"form-control\" placeholder=\"dd/mm/yyyy\" ngbDatepicker #" . $field->getName("xxYy") . "_=\"ngbDatepicker\" formControlName=\"{$field->getName()}\" [ngClass]=\"{'is-invalid':({$field->getName("xxYy")}.invalid && ({$field->getName("xxYy")}.dirty || {$field->getName("xxYy")}.touched))}\">
-        <div class=\"input-group-append\">
-          <button class=\"btn btn-outline-secondary\" (click)=\"" . $field->getName("xxYy") . "_.toggle()\" type=\"button\">
-            <span title=\"Calendario\" class=\"oi oi-calendar\"></span>
-          </button>
-          <button class=\"btn btn-outline-secondary\" (click)=\"" . $field->getName("xxYy") . ".setValue(null)\" type=\"button\">
-            <span title=\"Limpiar\" class=\"oi oi-reload\"></span>
-          </button>
-        </div>
-      </div>
+    $this->string .= "      <div fxFlex=\"auto\">
+        <mat-form-field>
+          <mat-label>{$field->getName('Xx yy')}</mat-label>
+          <input matInput [matDatepicker]=\"picker\" formControlName=\"{$field->getName()}\">
+          <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
 ";
       $this->templateErrorIsNotNull($field); 
       $this->templateErrorIsUnique($field); 
-      $this->templateErrorDate($field);
+      $this->templateErrorDate($field); 
 
-      $this->string .= "    </div>
-  </div>
+      $this->string .= "        </mat-form-field>
+      </div>
 ";
   }
 
@@ -117,7 +106,7 @@ class FieldsetHtml extends GenerateFileEntity {
 ";
       $this->templateErrorIsNotNull($field); 
       $this->templateErrorIsUnique($field); 
-      //$this->templateErrorDate($field);
+      $this->templateErrorDate($field);
 
       $this->string .= "    </div>
   </div>
@@ -303,7 +292,7 @@ class FieldsetHtml extends GenerateFileEntity {
   }
 
   protected function templateErrorDate(Field $field) {
-    $this->string .= "        <div *ngIf=\"{$field->getName("xxYy")}.errors.ngbDate\">Ingrese una fecha válida</div>
+    $this->string .= "          <mat-error *ngIf=\"{$field->getName("xxYy")}.hasError('matDatepickerParse')\">El formato es incorrecto</mat-error>
 ";
   }
 
