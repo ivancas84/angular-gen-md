@@ -52,7 +52,7 @@ class FieldsetHtml extends GenerateFileEntity {
         case "date": $this->date($field);  break;
         //case "float": case "integer": case "cuil": case "dni": $this->number($field); break;
         //case "year": $this->year($field); break;
-        case "timestamp": continue; break;
+        case "timestamp": break;
         //case "time": $this->time($field); break;
         //case "select_text": $this->selectValues($field); break;
         //case "select_int": $this->selectValues($field); break;
