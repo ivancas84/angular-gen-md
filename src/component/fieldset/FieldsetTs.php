@@ -14,9 +14,7 @@ class FieldsetTs extends GenerateFileEntity {
 
   protected function generateCode(){
     $this->start();
-    $this->declareOptions();
     $this->constructor();
-    $this->initOptions();
     $this->formGroup();
     $this->getters();
     $this->end();
@@ -56,18 +54,6 @@ export class " . $this->entity->getName("XxYy") . "FieldsetComponent extends Fie
   }
 
 ";
-  }
-
-  protected function declareOptions(){
-    require_once("component/_initOptions/_DeclareOptions.php");
-    $gen = new Gen_declareOptions($this->entity);
-    $this->string .= $gen->generate();
-  }
-
-  protected function initOptions(){
-    require_once("component/_initOptions/_InitOptions.php");
-    $gen = new Gen_initOptions($this->entity);
-    $this->string .= $gen->generate();
   }
 
   protected function initData(){

@@ -156,7 +156,7 @@ class FieldsetHtml extends GenerateFileEntity {
         <mat-form-field>
           <mat-label>{$field->getName('Xx yy')}</mat-label>
           <input matInput formControlName=\"{$field->getName()}\" placeholder=\"ejemplo@dominio.com\">
-          <mat-error *ngIf=\"{$field->getName("xxYy)}.hasError('pattern')\">El formato es incorrecto</mat-error>
+          <mat-error *ngIf=\"{$field->getName("xxYy")}.hasError('pattern')\">El formato es incorrecto</mat-error>
 ";
       $this->templateErrorIsNotNull($field); 
       $this->templateErrorIsUnique($field); 
@@ -231,7 +231,7 @@ class FieldsetHtml extends GenerateFileEntity {
 
   protected function select(Field $field) {
     $this->newRow();
-    $this->string .= "        <app-input-select fxFlex=\"auto\" [field]=\"{$field->getEntityRef()->getName('xxYy')}\" [entityName]=\"'{$field->getEntityRef()->getName()}'\" [title]=\"'{$field->getEntityRef()->getName("Xx Yy")}'\"></app-input-select>
+    $this->string .= "        <app-input-select fxFlex=\"auto\" [field]=\"{$field->getName('xxYy')}\" [entityName]=\"'{$field->getEntityRef()->getName()}'\" [title]=\"'{$field->getEntityRef()->getName("Xx Yy")}'\"></app-input-select>
 ";
   }
 
