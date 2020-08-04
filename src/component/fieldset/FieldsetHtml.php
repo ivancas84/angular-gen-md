@@ -57,7 +57,8 @@ class FieldsetHtml extends GenerateFileEntity {
         //case "select_text": $this->selectValues($field); break;
         //case "select_int": $this->selectValues($field); break;
         //case "textarea": $this->textarea($field); break;
-        default: $this->defecto($field); //name, email
+        case "email": $this->email($field); break;
+        default: $this->defecto($field); //name
       }
     }
   }
@@ -148,6 +149,22 @@ class FieldsetHtml extends GenerateFileEntity {
 ";
   }
 
+  
+  protected function email(Field $field) {
+    $this->newRow();
+    $this->string .= "      <div fxFlex=\"auto\">
+        <mat-form-field>
+          <mat-label>{$field->getName('Xx yy')}</mat-label>
+          <input matInput formControlName=\"{$field->getName()}\" placeholder=\"ejemplo@dominio.com\">
+          <mat-error *ngIf=\"{$field->getName("xxYy)}.hasError('pattern')\">El formato es incorrecto</mat-error>
+";
+      $this->templateErrorIsNotNull($field); 
+      $this->templateErrorIsUnique($field); 
+
+      $this->string .= "        </mat-form-field>
+      </div>
+";
+  }
 
   protected function defecto(Field $field) {
     $this->newRow();
@@ -214,13 +231,13 @@ class FieldsetHtml extends GenerateFileEntity {
 
   protected function select(Field $field) {
     $this->newRow();
-    $this->string .= "        <app-input-select fxFlex=\"auto\" [field]=\"{$field->getEntityRef()->getName('xxYy')}\" [entityName]=\"'{$field->getEntityRef()->getName()}'\"></app-input-select>
+    $this->string .= "        <app-input-select fxFlex=\"auto\" [field]=\"{$field->getEntityRef()->getName('xxYy')}\" [entityName]=\"'{$field->getEntityRef()->getName()}'\" [title]=\"'{$field->getEntityRef()->getName("Xx Yy")}'\"></app-input-select>
 ";
   }
 
   protected function autocomplete(Field $field) {
     $this->newRow();
-    $this->string .= "        <app-input-autocomplete fxFlex=\"auto\" [field]=\"" . $field->getName("xxYy") . "\" [entityName]=\"'" . $field->getEntityRef()->getName() . "'\"></app-input-autocomplete>
+    $this->string .= "        <app-input-autocomplete fxFlex=\"auto\" [field]=\"" . $field->getName("xxYy") . "\" [entityName]=\"'" . $field->getEntityRef()->getName() . "'\" [title]=\"'{$field->getEntityRef()->getName("Xx Yy")}'\"></app-input-autocomplete>
 ";
   }
 

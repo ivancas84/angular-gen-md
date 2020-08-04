@@ -166,7 +166,7 @@ class FieldsetTs_formGroup extends GenerateEntity {
 
   protected function email(Field $field) {
     $validators = [];
-    array_push($validators, "Validators.email");
+    array_push($validators, "Validators.pattern(\"[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}\")");
     if($this->validatorRequired($field)) array_push($validators, $this->validatorRequired($field));
 
     $asyncValidators = [];
