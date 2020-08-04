@@ -52,7 +52,7 @@ class FieldsetHtml extends GenerateFileEntity {
         case "date": $this->date($field);  break;
         //case "float": case "integer": case "cuil": case "dni": $this->number($field); break;
         //case "year": $this->year($field); break;
-        case "timestamp": continue; break;
+        case "timestamp": break;
         //case "time": $this->time($field); break;
         //case "select_text": $this->selectValues($field); break;
         //case "select_int": $this->selectValues($field); break;
@@ -213,18 +213,8 @@ class FieldsetHtml extends GenerateFileEntity {
 
 
   protected function select(Field $field) {
-    $this->string .= "  <div class=\"form-group form-row\">
-    <label class=\"col-sm-2 col-form-label\">" . $field->getName("Xx Yy") . "</label>
-    <div class=\"col-sm-10\">
-      <select class=\"form-control\" formControlName=\"" . $field->getName() . "\" [ngClass]=\"{'is-invalid':({$field->getName("xxYy")}.invalid && ({$field->getName("xxYy")}.dirty || {$field->getName("xxYy")}.touched))}\">
-        <option [ngValue]=\"null\">--" . $field->getName("Xx Yy") . "--</option>
-        <option *ngFor=\"let option of (opt" . $field->getEntityRef()->getName('XxYy') . "\$ | async)\" [value]=\"option.id\" >{{option.id | label:\"{$field->getEntityRef()->getName()}\"}}</option>
-      </select>
-";
-    $this->templateErrorIsNotNull($field); 
-    $this->templateErrorIsUnique($field);
-    $this->string .= "    </div>
-  </div>
+    $this->newRow();
+    $this->string .= "        <app-input-select fxFlex=\"auto\" [field]=\"{$field->getEntityRef()->getName('xxYy')}\" [entityName]=\"'{$field->getEntityRef()->getName()}'\"></app-input-select>
 ";
   }
 
