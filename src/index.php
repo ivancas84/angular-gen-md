@@ -27,11 +27,12 @@ foreach($structure as $entity) {
     //components
     case "admin": admin($entity); break;
     case "fieldset": fieldset($entity); break;
+    case "table": table($entity); break;
+    
     /*
     case "show": show($entity); break;
     case "detail": detail($entity); break;
     case "card": card($entity); break;
-    case "table": table($entity); break;
     case "grid": grid($entity); break;
     case "unordered-list": unorderedList($entity); break;
     case "search": search($entity); break;
@@ -46,13 +47,13 @@ foreach($structure as $entity) {
       //components
       admin($entity);
       fieldset($entity);
+      table($entity);
       /*
       search($entity);
       searchCondition($entity);
       searchParams($entity);
       searchOrder($entity);
       show($entity);
-      table($entity);
       grid($entity);
       unorderedList($entity);
       detail($entity);
@@ -130,11 +131,11 @@ function fieldset(Entity $entity) {
 }
 
 function table(Entity $entity) {
-  require_once("component/showElement/table/TableTs.php");
+  require_once("component/table/TableTs.php");
   $gen = new GenTableTs($entity);
   $gen->generate();
 
-  require_once("component/showElement/table/TableHtml.php");
+  require_once("component/table/TableHtml.php");
   $gen = new GenTableHtml($entity);
   $gen->generate();
 }
