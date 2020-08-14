@@ -11,21 +11,20 @@ class Gen_SearchHtml extends GenerateFileEntity {
   }
 
   protected function generateCode(){
-    $this->string .= "<mat-card>
-  <mat-card-header>
-    <mat-card-title (click)=\"optCard = !optCard\">Opciones</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>  
+    $this->string .= "<mat-accordion>
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Opciones</mat-panel-title>
+    </mat-expansion-panel-header>
     <form [formGroup]=\"searchForm\" novalidate (ngSubmit)=\"onSubmit()\">       
       <core-search-all [form]=\"searchForm\" [display$]=\"display$\"></core-search-all>
       <!--app-{$this->entity->getName('xx-yy')}-search-params [form]=\"searchForm\" [display$]=\"display$\"></app-{$this->entity->getName('xx-yy')}-search-params-->
       <!--app-{$this->entity->getName('xx-yy')}-search-condition [form]=\"searchForm\" [display$]=\"display$\"></app-{$this->entity->getName('xx-yy')}-search-condition-->
       <!--app-{$this->entity->getName('xx-yy')}-search-order [form]=\"searchForm\" [display$]=\"display$\"></app-{$this->entity->getName('xx-yy')}-search-order-->
-
       <button mat-raised-button color=\"primary\" type=\"submit\">Aceptar</button>&nbsp;
     </form>
-  </mat-card-content>
-</mat-card>
+  </mat-expansion-panel>
+</mat-accordion>
 ";
   }
 
