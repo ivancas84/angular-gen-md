@@ -42,6 +42,7 @@ class FieldsetHtml extends GenerateFileEntity {
     $this->matFieldCount++;
 
   }
+  
   protected function nf() {
     $fields = $this->getEntity()->getFieldsNf();
 
