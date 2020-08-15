@@ -27,7 +27,7 @@ class Gen_SearchParamsTs_formGroup extends GenerateEntity {
 
     foreach($fields as $field){
       switch ( $field->getSubtype() ) {
-        case "textarea": case "timestamp": break;
+        case "textarea": break;
         /**
          * La administracion de timestamp no se define debido a que no hay un controlador que actualmente lo soporte
          * Para el caso de que se requiera se deben definir campos adicionales para la fecha y hora independientes

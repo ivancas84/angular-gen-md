@@ -35,7 +35,7 @@ class Gen_SearchParamsHtml extends GenerateFileEntity {
           //$this->checkbox($field); 
         break;
         case "date": case "timestamp": 
-          //$this->date($field);  
+          $this->date($field);  
         break;
         case "float": case "integer": case "cuil": case "dni": 
           //$this->number($field); 
@@ -58,12 +58,14 @@ class Gen_SearchParamsHtml extends GenerateFileEntity {
 
   public function newRow(){
     if($this->matFieldCount && ($this->matFieldCount % 4 == 0)){
-      $this->string .= "    </div>
+      $this->string .= "      </div>
+    </div>  
     <div fxLayout=\"row\" fxLayout.lt-md=\"column\" fxLayoutGap=\"10px\">
+      <div fxLayout=\"row\" fxFlex=\"auto\" fxLayoutGap=\"10px\" fxLayout.xs=\"column\">
 ";
     } 
     
-    if($this->matFieldCount && ($this->matFieldCount % 2 == 0)){
+    elseif($this->matFieldCount && ($this->matFieldCount % 2 == 0)){
       $this->string .= "      </div>
       <div fxLayout=\"row\" fxFlex=\"auto\" fxLayoutGap=\"10px\" fxLayout.xs=\"column\">
 ";
@@ -89,19 +91,15 @@ class Gen_SearchParamsHtml extends GenerateFileEntity {
 
   protected function date(Field $field) {
     $this->newRow();
-    $this->string .= "    <div class=\"form-group col-sm-4\">
-      <div class=\"input-group\" formGroupName=\"{$field->getName()}\">
-        <input class=\"form-control-sm\" placeholder=\"{$field->getName('Xx yy')}: dd/mm/yyyy\" ngbDatepicker #" . $field->getName("xxYy") . "_=\"ngbDatepicker\" formControlName=\"{$field->getName()}\">
-        <div class=\"input-group-append\">
-          <button class=\"btn btn-outline-secondary\" (click)=\"" . $field->getName("xxYy") . "_.toggle()\" type=\"button\">
-            <span title=\"Calendario\" class=\"oi oi-calendar\"></span>
-          </button>
-          <button class=\"btn btn-outline-secondary\" (click)=\"" . $field->getName("xxYy") . ".setValue(null)\" type=\"button\">
-            <span title=\"Limpiar\" class=\"oi oi-reload\"></span>
-          </button>
+    $this->string .= "        <div fxFlex=\"auto\">
+          <mat-form-field>
+            <mat-label>{$field->getName('Xx yy')}</mat-label>
+            <input matInput [matDatepicker]=\"{$field->getAlias()}Picker\" formControlName=\"{$field->getName()}\">
+            <mat-datepicker-toggle matSuffix [for]=\"{$field->getAlias()}Picker\"></mat-datepicker-toggle>
+            <mat-datepicker #{$field->getAlias()}Picker></mat-datepicker>
+            <mat-error *ngIf=\"{$field->getName("xxYy")}.hasError('matDatepickerParse')\">El formato es incorrecto</mat-error>
+          </mat-form-field>
         </div>
-      </div>
-    </div>
 ";
   }
 
