@@ -29,14 +29,15 @@ foreach($structure as $entity) {
     case "fieldset": fieldset($entity); break;
     case "table": table($entity); break;
     case "show": show($entity); break;
+    case "search": search($entity); break;
+    case "search-params": searchParams($entity); break;
+
     /*
     case "detail": detail($entity); break;
     case "card": card($entity); break;
     case "grid": grid($entity); break;
     case "unordered-list": unorderedList($entity); break;
-    case "search": search($entity); break;
     case "search-condition": searchCondition($entity); break;
-    case "search-params": searchParams($entity); break;
     case "search-order": searchOrder($entity); break;
     case "form-pick": formPick($entity); break;
     */
@@ -48,11 +49,11 @@ foreach($structure as $entity) {
       fieldset($entity);
       table($entity);
       show($entity);
+      search($entity);
+      searchParams($entity);
 
       /*
-      search($entity);
       searchCondition($entity);
-      searchParams($entity);
       searchOrder($entity);
       grid($entity);
       unorderedList($entity);
