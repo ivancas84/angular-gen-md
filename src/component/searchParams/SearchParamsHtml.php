@@ -45,10 +45,10 @@ class Gen_SearchParamsHtml extends GenerateFileEntity {
         break;
      
         case "select_text": 
-          //$this->selectValues($field); 
+          $this->selectValues($field); 
         break;
         case "select_int": 
-          //$this->selectValues($field);
+          $this->selectValues($field);
          break;
          case "textarea": break;
         default: $this->defecto($field); //name, email
@@ -136,18 +136,19 @@ class Gen_SearchParamsHtml extends GenerateFileEntity {
 
   protected function selectValues(Field $field){
     $this->newRow();
-    $this->string .= "    <div class=\"form-group col-sm-4\">
-      <select class=\"form-control-sm\" formControlName=\"" . $field->getName() . "\">
-        <option [ngValue]=\"null\">--" . $field->getName("Xx Yy") . "--</option>
+    $this->string .= "        <div fxFlex=\"auto\">
+          <mat-form-field>
+            <mat-label>" . $field->getName("Xx yy") . "</mat-label>
+            <mat-select formControlName=\"" . $field->getName() . "\">
+              <mat-option>--Seleccione--</mat-option>
 " ;
 
-    foreach($field->getSelectValues() as $value) $this->string .= "            <option value=\"" . $value . "\">" . $value . "</option>
+              foreach($field->getSelectValues() as $value) $this->string .= "              <mat-option value=\"" . $value . "\">" . $value . "</mat-option>
 ";
-
-    $this->string .= "      </select>
-    </div>
+$this->string .= "            </mat-select>
+          </mat-form-field>
+        </div>
 ";
-
   }
 
   protected function select(Field $field) {
