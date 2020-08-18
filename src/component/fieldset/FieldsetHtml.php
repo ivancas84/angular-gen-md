@@ -26,19 +26,26 @@ class FieldsetHtml extends GenerateFileEntity {
     <mat-card-title>" . $this->getEntity()->getName("Xx Yy") . "</mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <div fxLayout=\"row\" fxLayout.xs=\"column\" fxLayoutGap=\"10px\">
+    <div fxLayout=\"row\" fxLayout.lt-md=\"column\" fxLayoutGap=\"10px\">
+      <div fxLayout=\"row\" fxFlex=\"auto\" fxLayoutGap=\"10px\" fxLayout.xs=\"column\">
 ";
   }
 
-
   public function newRow(){
     if($this->matFieldCount && ($this->matFieldCount % 4 == 0)){
-      $this->string .= "    </div>
-    <div fxLayout=\"row\"
-      fxLayout.xs=\"column\"
-      fxLayoutGap=\"10px\">
+      $this->string .= "      </div>
+    </div>  
+    <div fxLayout=\"row\" fxLayout.lt-md=\"column\" fxLayoutGap=\"10px\">
+      <div fxLayout=\"row\" fxFlex=\"auto\" fxLayoutGap=\"10px\" fxLayout.xs=\"column\">
+";
+    } 
+    
+    elseif($this->matFieldCount && ($this->matFieldCount % 2 == 0)){
+      $this->string .= "      </div>
+      <div fxLayout=\"row\" fxFlex=\"auto\" fxLayoutGap=\"10px\" fxLayout.xs=\"column\">
 ";
     }
+    
     $this->matFieldCount++;
 
   }
@@ -55,9 +62,8 @@ class FieldsetHtml extends GenerateFileEntity {
         //case "year": $this->year($field); break;
         case "timestamp": break;
         //case "time": $this->time($field); break;
-        //case "select_text": $this->selectValues($field); break;
-        //case "select_int": $this->selectValues($field); break;
-        //case "textarea": $this->textarea($field); break;
+        case "select_text": case "select_int": case "select": $this->selectValues($field); break;
+        case "textarea": $this->textarea($field); break;
         case "email": $this->email($field); break;
         default: $this->defecto($field); //name
       }
@@ -83,19 +89,19 @@ class FieldsetHtml extends GenerateFileEntity {
 
   protected function date(Field $field) {
     $this->newRow();
-    $this->string .= "      <div fxFlex=\"auto\">
-        <mat-form-field>
-          <mat-label>{$field->getName('Xx yy')}</mat-label>
-          <input matInput [matDatepicker]=\"picker\" formControlName=\"{$field->getName()}\">
-          <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
+    $this->string .= "        <div fxFlex=\"auto\">
+          <mat-form-field>
+            <mat-label>{$field->getName('Xx yy')}</mat-label>
+            <input matInput [matDatepicker]=\"picker\" formControlName=\"{$field->getName()}\">
+            <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
 ";
       $this->templateErrorIsNotNull($field); 
       $this->templateErrorIsUnique($field); 
       $this->templateErrorDate($field); 
 
-      $this->string .= "        </mat-form-field>
-      </div>
+      $this->string .= "          </mat-form-field>
+        </div>
 ";
   }
 
@@ -169,30 +175,30 @@ class FieldsetHtml extends GenerateFileEntity {
 
   protected function defecto(Field $field) {
     $this->newRow();
-    $this->string .= "      <div fxFlex=\"auto\">
-        <mat-form-field>
-          <mat-label>" . $field->getName("Xx yy") . "</mat-label>
-          <input matInput formControlName=\"" . $field->getName() . "\" >
+    $this->string .= "        <div fxFlex=\"auto\">
+          <mat-form-field>
+            <mat-label>" . $field->getName("Xx yy") . "</mat-label>
+            <input matInput formControlName=\"" . $field->getName() . "\" >
 ";
       $this->templateErrorIsNotNull($field); 
       $this->templateErrorIsUnique($field); 
-      $this->string .= "        </mat-form-field>
-      </div>
+      $this->string .= "          </mat-form-field>
+        </div>
 ";
   }
 
 
   protected function textarea(Field $field) {
     $this->newRow();
-    $this->string .= "  <div class=\"form-group form-row\">
-    <label class=\"col-sm-2 col-form-label\">" . $field->getName("Xx yy") . "</label>
-    <div class=\"col-sm-10\">
-      <textarea class=\"form-control\" type=\"text\" formControlName=\"" . $field->getName() . "\"  [ngClass]=\"{'is-invalid':(" . $field->getName("xxYy") . ".invalid && (" . $field->getName("xxYy") . ".dirty || " . $field->getName("xxYy") . ".touched))}\"></textarea>
+    $this->string .= "        <div fxFlex=\"auto\">
+          <mat-form-field>
+            <mat-label>" . $field->getName("Xx yy") . "</mat-label>
+            <textarea matInput formControlName=\"" . $field->getName() . "\" ></textarea>
 ";
       $this->templateErrorIsNotNull($field); 
       $this->templateErrorIsUnique($field); 
-      $this->string .= "    </div>
-  </div>
+      $this->string .= "          </mat-form-field>
+        </div>
 ";
   }
 
@@ -209,22 +215,22 @@ class FieldsetHtml extends GenerateFileEntity {
   }
 
   protected function selectValues(Field $field){
-    $this->string .= "  <div class=\"form-group form-row\">
-    <label class=\"col-sm-2 col-form-label\">" . $field->getName("Xx Yy") . ":</label>
-    <div class=\"col-sm-10\">
-      <select class=\"form-control\" formControlName=\"" . $field->getName() . "\" [ngClass]=\"{'is-invalid':({$field->getName("xxYy")}.invalid && ({$field->getName("xxYy")}.dirty || {$field->getName("xxYy")}.touched))}\">
-        <option [ngValue]=\"null\">--" . $field->getName("Xx Yy") . "--</option>
+    $this->newRow();
+    $this->string .= "        <div fxFlex=\"auto\">
+          <mat-form-field>
+            <mat-label>" . $field->getName("Xx yy") . "</mat-label>
+            <mat-select formControlName=\"" . $field->getName() . "\">
+              <mat-option>--Seleccione--</mat-option>
 " ;
 
-    foreach($field->getSelectValues() as $value) $this->string .= "            <option value=\"" . $value . "\">" . $value . "</option>
+              foreach($field->getSelectValues() as $value) $this->string .= "              <mat-option value=\"" . $value . "\">" . $value . "</mat-option>
 ";
-
-    $this->string .= "      </select>
+    $this->string .= "            </mat-select>
 ";
     $this->templateErrorIsNotNull($field); 
-    $this->templateErrorIsUnique($field);
-    $this->string .= "    </div>
-  </div>
+    $this->templateErrorIsUnique($field); 
+    $this->string .= "          </mat-form-field>
+        </div>
 ";
 
   }
@@ -257,36 +263,31 @@ class FieldsetHtml extends GenerateFileEntity {
 ";
   }
 
-
-
   protected function end() {
     if($this->entity->getFieldsUniqueMultiple()) $this->string .= "  <div class=\"text-danger\" *ngIf=\"fieldset.errors\">
     <div *ngIf=\"fieldset.errors.notUnique\">El valor ya se encuentra utilizado: <a routerLink=\"/{$this->entity->getName("xx-yy")}-admin\" [queryParams]=\"{'id':fieldset.errors.notUnique}\">Cargar</a></div>
   </div>
 ";
-    $this->string .= "    </div>
+    $this->string .= "      </div>
+    </div>
   </mat-card-content>
 </mat-card>
 ";
   }
 
   protected function templateErrorIsNotNull(Field $field){
-    if($field->isNotNull()) $this->string .= "          <mat-error *ngIf=\"{$field->getName('xxYy')}.hasError('required')\">Debe completar valor</mat-error>
+    if($field->isNotNull()) $this->string .= "            <mat-error *ngIf=\"{$field->getName('xxYy')}.hasError('required')\">Debe completar valor</mat-error>
 ";
   }
 
   protected function templateErrorIsUnique(Field $field){
-    if($field->isUnique()) $this->string .= "          <mat-error *ngIf=\"{$field->getName('xxYy')}.hasError('notUnique')\">
-            El valor ya se encuentra utilizado: <a routerLink=\"/{$field->getEntity()->getName("xx-yy")}-admin\" [queryParams]=\"{'{$field->getName()}':{$field->getName('xxYy')}.value}\">Cargar</a>    
-          </mat-error>
+    if($field->isUnique()) $this->string .= "            <mat-error *ngIf=\"{$field->getName('xxYy')}.hasError('notUnique')\">
+              El valor ya se encuentra utilizado: <a routerLink=\"/{$field->getEntity()->getName("xx-yy")}-admin\" [queryParams]=\"{'{$field->getName()}':{$field->getName('xxYy')}.value}\">Cargar</a>    
+            </mat-error>
 ";
   }
 
 
-  protected function templateErrorEmail(Field $field) {
-    $this->string .= "        <div *ngIf=\"{$field->getName("xxYy")}.errors.email\">Debe ser un email válido</div>
-";
-  }
 
 
   protected function templateErrorYear(Field $field) {
