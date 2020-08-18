@@ -14,6 +14,7 @@ class FieldsetTs extends GenerateFileEntity {
 
   protected function generateCode(){
     $this->start();
+    $this->defaultValues();
     $this->constructor();
     $this->formGroup();
     $this->getters();
@@ -41,6 +42,13 @@ export class " . $this->entity->getName("XxYy") . "FieldsetComponent extends Fie
 
 ";
   }
+
+  protected function defaultValues(){
+    require_once("component/fieldset/_DefaultValues.php");
+    $gen = new FieldsetTs_defaultValues($this->entity);
+    $this->string .= $gen->generate();
+  }
+
 
   protected function constructor(){
     $this->string .= "  constructor(
