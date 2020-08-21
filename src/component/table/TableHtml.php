@@ -25,7 +25,7 @@ class GenTableHtml extends GenerateFileEntity {
   <mat-card-header>
     <mat-card-title>" . $this->getEntity()->getName("Xx Yy") . "</mat-card-title>
   </mat-card-header>
-  <mat-card-content>
+  <mat-card-content *ngIf=\"(loadLength$ | async) as length\">
     <table mat-table *ngIf=\"(load$ | async)\" [dataSource]=\"dataSource\" matSort matSortDisableClear (matSortChange)=\"onChangeSort(\$event)\" class=\"mat-elevation-z8\">
 ";
   }
@@ -58,6 +58,11 @@ class GenTableHtml extends GenerateFileEntity {
     $this->string .= "      <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>
       <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>
     </table>  
+    <mat-paginator *ngIf=\"(display$ | async) as display\"
+                   [length]=\"length\"
+                   [pageSize]=\"display.size\"
+                   (page)=\"onChangePage(\$event)\">
+    </mat-paginator>
   </mat-card-content>
 </mat-card>
 ";
