@@ -21,12 +21,16 @@ class GenTableHtml extends GenerateFileEntity {
 
 
   protected function start(){
-    $this->string .= "<mat-card>
+    $this->string .= "<ng-template #loading>
+  <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>
+</ng-template>
+
+<mat-card>
   <mat-card-header>
     <mat-card-title>" . $this->getEntity()->getName("Xx Yy") . "</mat-card-title>
   </mat-card-header>
-  <mat-card-content *ngIf=\"(loadLength$ | async) as length\">
-    <table mat-table *ngIf=\"(load$ | async)\" [dataSource]=\"dataSource\" matSort matSortDisableClear (matSortChange)=\"onChangeSort(\$event)\" class=\"mat-elevation-z8\">
+  <mat-card-content *ngIf=\"loadLength$ | async; else loading\">
+    <table mat-table *ngIf=\"load$ | async; else loading\" [dataSource]=\"dataSource\" matSort matSortDisableClear (matSortChange)=\"onChangeSort(\$event)\" class=\"mat-elevation-z8\">
 ";
   }
 
