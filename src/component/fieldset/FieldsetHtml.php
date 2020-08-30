@@ -244,7 +244,7 @@ class FieldsetHtml extends GenerateFileEntity {
 
   protected function autocomplete(Field $field) {
     $this->newRow();
-    $this->string .= "        <app-input-autocomplete fxFlex=\"auto\" [field]=\"" . $field->getName("xxYy") . "\" [entityName]=\"'" . $field->getEntityRef()->getName() . "'\" [title]=\"'{$field->getName("Xx Yy")}'\"></app-input-autocomplete>
+    $this->string .= "        <core-input-autocomplete fxFlex=\"auto\" [field]=\"" . $field->getName("xxYy") . "\" [entityName]=\"'" . $field->getEntityRef()->getName() . "'\" [title]=\"'{$field->getName("Xx Yy")}'\"></core-input-autocomplete>
 ";
   }
 
