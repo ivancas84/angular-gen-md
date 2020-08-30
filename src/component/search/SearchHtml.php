@@ -21,7 +21,7 @@ class Gen_SearchHtml extends GenerateFileEntity {
       <!--app-{$this->entity->getName('xx-yy')}-search-params [form]=\"searchForm\" [display$]=\"display$\"></app-{$this->entity->getName('xx-yy')}-search-params-->
       <!--app-{$this->entity->getName('xx-yy')}-search-condition [form]=\"searchForm\" [display$]=\"display$\"></app-{$this->entity->getName('xx-yy')}-search-condition-->
       <!--app-{$this->entity->getName('xx-yy')}-search-order [form]=\"searchForm\" [display$]=\"display$\"></app-{$this->entity->getName('xx-yy')}-search-order-->
-      <button mat-raised-button color=\"primary\" type=\"submit\">Aceptar</button>&nbsp;
+      <button mat-raised-button color=\"primary\" type=\"submit\">Buscar</button>&nbsp;
     </form>
   </mat-expansion-panel>
 </mat-accordion>

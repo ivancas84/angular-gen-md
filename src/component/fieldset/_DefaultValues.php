@@ -1,7 +1,7 @@
 <?php
 
 require_once("GenerateEntity.php");
-
+require_once("function/settypebool.php");
 
 class FieldsetTs_defaultValues extends GenerateEntity {
 

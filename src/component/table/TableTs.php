@@ -24,6 +24,10 @@ import { TableComponent } from '@component/table/table.component';
 @Component({
   selector: 'app-" . $this->entity->getName("xx-yy") . "-table',
   templateUrl: './" . $this->entity->getName("xx-yy") . "-table.component.html',
+  styles:[`
+  .mat-card-content { overflow-x: auto; }
+  .mat-table.mat-table { min-width: 700px; }
+  `],
 })
 export class " . $this->entity->getName("XxYy") . "TableComponent extends TableComponent { 
 ";        
