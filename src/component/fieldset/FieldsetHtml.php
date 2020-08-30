@@ -238,7 +238,7 @@ class FieldsetHtml extends GenerateFileEntity {
 
   protected function select(Field $field) {
     $this->newRow();
-    $this->string .= "        <app-input-select fxFlex=\"auto\" [field]=\"{$field->getName('xxYy')}\" [entityName]=\"'{$field->getEntityRef()->getName()}'\" [title]=\"'{$field->getName("Xx Yy")}'\"></app-input-select>
+    $this->string .= "        <core-input-select fxFlex=\"auto\" [field]=\"{$field->getName('xxYy')}\" [entityName]=\"'{$field->getEntityRef()->getName()}'\" [title]=\"'{$field->getName("Xx Yy")}'\"></core-input-select>
 ";
   }
 

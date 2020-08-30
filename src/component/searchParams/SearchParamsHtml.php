@@ -14,7 +14,7 @@ class Gen_SearchParamsHtml extends GenerateFileEntity {
   public function generateCode() {
     $this->start();
     $this->nf();
-    //$this->fk();
+    $this->fk();
     $this->end();
   }
 
@@ -75,7 +75,6 @@ class Gen_SearchParamsHtml extends GenerateFileEntity {
 
   }
 
-  
   public function fk(){
     $fields = $this->getEntity()->getFieldsFk();
 
@@ -83,11 +82,10 @@ class Gen_SearchParamsHtml extends GenerateFileEntity {
     
       switch($field->getSubtype()) {
         case "select": $this->select($field); break;
-        case "typeahead": $this->typeahead($field); break;
+        case "typeahead": case "autocomplete": $this->autocomplete($field); break;
       }
     }
   }
-
 
   protected function date(Field $field) {
     $this->newRow();
@@ -153,20 +151,13 @@ $this->string .= "            </mat-select>
 
   protected function select(Field $field) {
     $this->newRow();
-    $this->string .= "    <div class=\"form-group col-sm-4\">
-      <select class=\"form-control-sm\" formControlName=\"" . $field->getName() . "\">
-        <option [ngValue]=\"null\">--" . $field->getName("Xx Yy") . "--</option>
-        <option *ngFor=\"let option of (opt" . $field->getEntityRef()->getName('XxYy') . "$ | async)\" [value]=\"option.id\" >{{option.id | label:\"{$field->getEntityRef()->getName()}\"}}</option>
-      </select>
-    </div>
+    $this->string .= "        <core-input-select fxFlex=\"auto\" [field]=\"{$field->getName('xxYy')}\" [entityName]=\"'{$field->getEntityRef()->getName()}'\" [title]=\"'{$field->getName("Xx Yy")}'\"></core-input-select>
 ";
   }
 
-  protected function typeahead(Field $field) {
+  protected function autocomplete(Field $field) {
     $this->newRow();
-    $this->string .= "    <div class=\"form-group col-sm-4\">
-      <app-typeahead [field]=\"" . $field->getName("xxYy") . "\" [entityName]=\"'" . $field->getEntityRef()->getName() . "'\" [size]=\"sm\"></app-typeahead>
-    </div>
+    $this->string .= "        <core-input-autocomplete fxFlex=\"auto\" [field]=\"" . $field->getName("xxYy") . "\" [entityName]=\"'" . $field->getEntityRef()->getName() . "'\" [title]=\"'{$field->getName("Xx Yy")}'\"></core-input-autocomplete>
 ";
   }
 
