@@ -92,7 +92,7 @@ class FieldsetHtml extends GenerateFileEntity {
     $this->string .= "        <div fxFlex=\"auto\">
           <mat-form-field>
             <mat-label>{$field->getName('Xx yy')}</mat-label>
-            <input matInput [matDatepicker]=\"picker\" formControlName=\"{$field->getName()}\">
+            <input matInput placeholder=\"dd/mm/aaaa\" [matDatepicker]=\"picker\" formControlName=\"{$field->getName()}\">
             <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
 ";
@@ -162,7 +162,7 @@ class FieldsetHtml extends GenerateFileEntity {
     $this->string .= "      <div fxFlex=\"auto\">
         <mat-form-field>
           <mat-label>{$field->getName('Xx yy')}</mat-label>
-          <input matInput formControlName=\"{$field->getName()}\" placeholder=\"ejemplo@dominio.com\">
+          <input matInput formControlName=\"{$field->getName()}\" placeholder=\"ejemplo@email.com\">
           <mat-error *ngIf=\"{$field->getName("xxYy")}.hasError('pattern')\">El formato es incorrecto</mat-error>
 ";
       $this->templateErrorIsNotNull($field); 
