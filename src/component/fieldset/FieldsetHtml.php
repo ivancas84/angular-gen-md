@@ -42,7 +42,7 @@ class FieldsetHtml extends GenerateFileEntity {
     
     elseif($this->matFieldCount && ($this->matFieldCount % 2 == 0)){
       $this->string .= "      </div>
-      <div fxLayout=\"row\" fxFlex=\"50%\" fxFlex.xs=\"100%\" fxLayoutGap=\"10px\" fxLayout.xs=\"column\">
+      <div fxLayout=\"row\" fxFlex=\"50%\" fxFlex.lt-md=\"100%\" fxLayoutGap=\"10px\" fxLayout.xs=\"column\">
 ";
     }
     
