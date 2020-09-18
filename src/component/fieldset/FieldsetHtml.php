@@ -36,13 +36,13 @@ class FieldsetHtml extends GenerateFileEntity {
       $this->string .= "      </div>
     </div>  
     <div fxLayout=\"row\" fxLayout.lt-md=\"column\" fxLayoutGap=\"10px\">
-      <div fxLayout=\"row\" fxFlex=\"auto\" fxLayoutGap=\"10px\" fxLayout.xs=\"column\">
+      <div fxLayout=\"row\" fxFlex=\"50%\" fxFlex.lt-md=\"100%\" fxLayoutGap=\"10px\" fxLayout.xs=\"column\">
 ";
     } 
     
     elseif($this->matFieldCount && ($this->matFieldCount % 2 == 0)){
       $this->string .= "      </div>
-      <div fxLayout=\"row\" fxFlex=\"auto\" fxLayoutGap=\"10px\" fxLayout.xs=\"column\">
+      <div fxLayout=\"row\" fxFlex=\"50%\" fxFlex.xs=\"100%\" fxLayoutGap=\"10px\" fxLayout.xs=\"column\">
 ";
     }
     
