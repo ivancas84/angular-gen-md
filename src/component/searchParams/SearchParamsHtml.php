@@ -32,7 +32,7 @@ class Gen_SearchParamsHtml extends GenerateFileEntity {
     foreach($fields as $field) {
       switch ( $field->getSubtype() ) {
         case "checkbox": 
-          //$this->checkbox($field); 
+          $this->checkbox($field); 
         break;
         case "date": case "timestamp": 
           $this->date($field);  
