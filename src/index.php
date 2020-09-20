@@ -31,6 +31,7 @@ foreach($structure as $entity) {
     case "show": show($entity); break;
     case "search": search($entity); break;
     case "search-params": searchParams($entity); break;
+    case "input-picker": inputPicker($entity); break;
 
     /*
     case "detail": detail($entity); break;
@@ -39,7 +40,6 @@ foreach($structure as $entity) {
     case "unordered-list": unorderedList($entity); break;
     case "search-condition": searchCondition($entity); break;
     case "search-order": searchOrder($entity); break;
-    case "form-pick": formPick($entity); break;
     */
     case null:
       //services
@@ -51,6 +51,8 @@ foreach($structure as $entity) {
       show($entity);
       search($entity);
       searchParams($entity);
+      inputPicker($entity);
+
 
       /*
       searchCondition($entity);
@@ -59,7 +61,6 @@ foreach($structure as $entity) {
       unorderedList($entity);
       detail($entity);
       card($entity);
-      formPick($entity);
       */
     break;
   }
@@ -200,12 +201,12 @@ function searchParams(Entity $entity) {
   $gen->generate();
 }
 
-function formPick(Entity $entity){
-  require_once("component/formPick/FormPickTs.php");
-  $gen = new GenFormPickTs($entity);
+function inputPicker(Entity $entity){
+  require_once("component/inputPicker/InputPickerTs.php");
+  $gen = new GenInputPickerTs($entity);
   $gen->generate();
 
-  require_once("component/formPick/FormPickHtml.php");
-  $gen = new GenFormPickHtml($entity);
+  require_once("component/inputPicker/InputPickerHtml.php");
+  $gen = new GenInputPickerHtml($entity);
   $gen->generate();
 }

@@ -27,7 +27,7 @@ class FieldsetHtml extends GenerateFileEntity {
   </mat-card-header>
   <mat-card-content>
     <div fxLayout=\"row\" fxLayout.lt-md=\"column\" fxLayoutGap=\"10px\">
-      <div fxLayout=\"row\" fxFlex=\"auto\" fxLayoutGap=\"10px\" fxLayout.xs=\"column\">
+      <div fxLayout=\"row\" fxFlex=\"50%\" fxFlex.lt-md=\"100%\" fxLayoutGap=\"10px\" fxLayout.xs=\"column\">
 ";
   }
 
@@ -36,13 +36,13 @@ class FieldsetHtml extends GenerateFileEntity {
       $this->string .= "      </div>
     </div>  
     <div fxLayout=\"row\" fxLayout.lt-md=\"column\" fxLayoutGap=\"10px\">
-      <div fxLayout=\"row\" fxFlex=\"auto\" fxLayoutGap=\"10px\" fxLayout.xs=\"column\">
+      <div fxLayout=\"row\" fxFlex=\"50%\" fxFlex.lt-md=\"100%\" fxLayoutGap=\"10px\" fxLayout.xs=\"column\">
 ";
     } 
     
     elseif($this->matFieldCount && ($this->matFieldCount % 2 == 0)){
       $this->string .= "      </div>
-      <div fxLayout=\"row\" fxFlex=\"auto\" fxLayoutGap=\"10px\" fxLayout.xs=\"column\">
+      <div fxLayout=\"row\" fxFlex=\"50%\" fxFlex.lt-md=\"100%\" fxLayoutGap=\"10px\" fxLayout.xs=\"column\">
 ";
     }
     
@@ -56,7 +56,7 @@ class FieldsetHtml extends GenerateFileEntity {
     foreach($fields as $field) {
       if(!$field->isAdmin()) continue;
       switch ( $field->getSubtype() ) {
-        //case "checkbox": $this->checkbox($field); break;
+        case "checkbox": $this->checkbox($field); break;
         case "date": $this->date($field);  break;
         //case "float": case "integer": case "cuil": case "dni": $this->number($field); break;
         //case "year": $this->year($field); break;
@@ -175,76 +175,41 @@ class FieldsetHtml extends GenerateFileEntity {
 
   protected function defecto(Field $field) {
     $this->newRow();
-    $this->string .= "        <div fxFlex=\"auto\">
-          <mat-form-field>
-            <mat-label>" . $field->getName("Xx yy") . "</mat-label>
-            <input matInput formControlName=\"" . $field->getName() . "\" >
-";
-      $this->templateErrorIsNotNull($field); 
-      $this->templateErrorIsUnique($field); 
-      $this->string .= "          </mat-form-field>
-        </div>
+    $this->string .= "        <core-input-text [field]=\"" . $field->getName("xxYy") . "\" [title]=\"'" . $field->getName("Xx Yy") . "'\" fxFlex=\"50%\" fxFlex.xs=\"100%\" fxLayoutAlign=\"center center\"></core-input-text>
 ";
   }
 
 
   protected function textarea(Field $field) {
     $this->newRow();
-    $this->string .= "        <div fxFlex=\"auto\">
-          <mat-form-field>
-            <mat-label>" . $field->getName("Xx yy") . "</mat-label>
-            <textarea matInput formControlName=\"" . $field->getName() . "\" ></textarea>
-";
-      $this->templateErrorIsNotNull($field); 
-      $this->templateErrorIsUnique($field); 
-      $this->string .= "          </mat-form-field>
-        </div>
+    $this->string .= "        <core-input-textarea [field]=\"" . $field->getName("xxYy") . "\" [title]=\"'" . $field->getName("Xx Yy") . "'\" fxFlex=\"50%\" fxFlex.xs=\"100%\" fxLayoutAlign=\"center center\"></core-input-textarea>
 ";
   }
 
 
   protected function checkbox(Field $field) {
     $this->newRow();
-    $this->string .= "  <div class=\"form-group form-check\">
-    <label class=\"form-check-label\">
-      <input class=\"form-check-input\" type=\"checkbox\" formControlName=\"{$field->getName()}\"> {$field->getName()}
-    </label>
-";
-    $this->string .= "  </div>
+    $this->string .= "        <div fxFlex=\"50%\" fxFlex.xs=\"100%\" fxLayoutAlign=\"center center\">
+          <mat-checkbox formControlName=\"{$field->getName()}\">{$field->getName("Xx Yy")}</mat-checkbox>
+        </div>
 ";
   }
 
   protected function selectValues(Field $field){
     $this->newRow();
-    $this->string .= "        <div fxFlex=\"auto\">
-          <mat-form-field>
-            <mat-label>" . $field->getName("Xx yy") . "</mat-label>
-            <mat-select formControlName=\"" . $field->getName() . "\">
-              <mat-option>--Seleccione--</mat-option>
-" ;
-
-              foreach($field->getSelectValues() as $value) $this->string .= "              <mat-option value=\"" . $value . "\">" . $value . "</mat-option>
+    $this->string .= "        <core-input-select-param [field]=\"" . $field->getName("xxYy") . "\" [options]=\"['" . implode("','",$field->getSelectValues()) . "']\" [title]=\"'" . $field->getName("Xx yy") . "'\" fxFlex=\"50%\" fxFlex.xs=\"100%\" fxLayoutAlign=\"center center\"></core-input-select-param>
 ";
-    $this->string .= "            </mat-select>
-";
-    $this->templateErrorIsNotNull($field); 
-    $this->templateErrorIsUnique($field); 
-    $this->string .= "          </mat-form-field>
-        </div>
-";
-
   }
-
 
   protected function select(Field $field) {
     $this->newRow();
-    $this->string .= "        <core-input-select fxFlex=\"auto\" [field]=\"{$field->getName('xxYy')}\" [entityName]=\"'{$field->getEntityRef()->getName()}'\" [title]=\"'{$field->getName("Xx Yy")}'\"></core-input-select>
+    $this->string .= "        <core-input-select [field]=\"{$field->getName('xxYy')}\" [entityName]=\"'{$field->getEntityRef()->getName()}'\" [title]=\"'{$field->getName("Xx Yy")}'\" fxFlex=\"50%\" fxFlex.xs=\"100%\" fxLayoutAlign=\"center center\"></core-input-select>
 ";
   }
 
   protected function autocomplete(Field $field) {
     $this->newRow();
-    $this->string .= "        <core-input-autocomplete fxFlex=\"auto\" [field]=\"" . $field->getName("xxYy") . "\" [entityName]=\"'" . $field->getEntityRef()->getName() . "'\" [title]=\"'{$field->getName("Xx Yy")}'\"></core-input-autocomplete>
+    $this->string .= "        <core-input-autocomplete [field]=\"" . $field->getName("xxYy") . "\" [entityName]=\"'" . $field->getEntityRef()->getName() . "'\" [title]=\"'{$field->getName("Xx Yy")}'\" fxFlex=\"50%\" fxFlex.xs=\"100%\" fxLayoutAlign=\"center center\"></core-input-autocomplete>
 ";
   }
 
