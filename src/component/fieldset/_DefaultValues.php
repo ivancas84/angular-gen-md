@@ -32,7 +32,7 @@ class FieldsetTs_defaultValues extends GenerateEntity {
 
   protected function body(){
     foreach($this->entity->getFields() as $field){
-      if(!$field->isAdmin() || is_null($field->getDefault())) continue;
+      if(!$field->isAdmin()) continue;
 
       switch($field->getDataType()){
         case "integer": 
@@ -61,6 +61,7 @@ class FieldsetTs_defaultValues extends GenerateEntity {
   }
 
   protected function datetime($field){
+    if(is_null($field->getDefault())) return;
     $default = (strpos(strtolower($field->getDefault()), "current") !== false) ? 
       "new Date()" : "new Date('" . $field->getDefault() . "')";
   
@@ -68,10 +69,12 @@ class FieldsetTs_defaultValues extends GenerateEntity {
   }
 
   protected function number($field){
+    if(is_null($field->getDefault())) return;
     array_push($this->fields, "{$field->getName()}: {$field->getDefault()}");
   }
 
   protected function defecto($field){
+    if(is_null($field->getDefault())) return;
     array_push($this->fields, "{$field->getName()}: \"{$field->getDefault()}\"");
   }
 

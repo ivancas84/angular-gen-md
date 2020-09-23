@@ -7,19 +7,20 @@
  */
 
 require_once("../config/config.php");
-require_once("class/model/entity/structure.php");
 require_once("class/tools/Filter.php");
+require_once("class/Container.php");
 
 require_once("service/data-definition-loader/DataDefinitionLoader.php");
 
 $generate = Filter::get("gen");
 
+$container = new Container();
 switch($generate) {
-  case null: case "loader": loader($structure); break;
+  case null: case "loader": loader($container->getStructure()); break;
 }
 
 
-foreach($structure as $entity) {
+foreach($container->getStructure() as $entity) {
   switch($generate){
     //services
     case "data-definition": dataDefinition($entity); break;
