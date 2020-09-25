@@ -6,14 +6,19 @@ class FieldsetTs extends GenerateFileEntity {
 
   protected $options = []; //opciones
 
-  public function __construct(Entity $entity) {
-    $file = $entity->getName("xx-yy") . "-fieldset.component.ts";
-    $dir = $_SERVER["DOCUMENT_ROOT"]."/".PATH_GEN."/" . "tmp/component/fieldset/" . $entity->getName("xx-yy") . "-fieldset/";
+  public function __construct(Entity $entity, $dir=null, $file=null) {
+    if(!$file) $file = $entity->getName("xx-yy") . "-fieldset.component.ts";
+    if(!$dir) $dir = $_SERVER["DOCUMENT_ROOT"]."/".PATH_GEN."/" . "tmp/component/fieldset/" . $entity->getName("xx-yy") . "-fieldset/";
     parent::__construct($dir, $file, $entity);
   }
 
   protected function generateCode(){
-    $this->start();
+    /**
+     * Se define una estructura de generacion que facilite su reimplementacion
+     */
+    $this->imports();
+    $this->component();
+    $this->attributes();
     $this->defaultValues();
     $this->constructor();
     $this->formGroup();
@@ -21,16 +26,18 @@ class FieldsetTs extends GenerateFileEntity {
     $this->end();
   }
 
-  protected function start(){
+  protected function imports(){
     $this->string .= "import { Component } from '@angular/core';
-import { FieldsetComponent } from '@component/fieldset/fieldset.component';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataDefinitionService } from '@service/data-definition/data-definition.service';
 import { ValidatorsService } from '@service/validators/validators.service';
-import { Observable } from 'rxjs';
-import { Display } from '@class/display';
 import { Router } from '@angular/router';
 import { SessionStorageService } from '@service/storage/session-storage.service';
+";
+  }
+
+  protected function component(){
+    $this->string .="import { FieldsetComponent } from '@component/fieldset/fieldset.component';
 
 @Component({
   selector: 'app-" . $this->entity->getName("xx-yy") . "-fieldset',
@@ -38,7 +45,11 @@ import { SessionStorageService } from '@service/storage/session-storage.service'
 })
 export class " . $this->entity->getName("XxYy") . "FieldsetComponent extends FieldsetComponent {
 
-  readonly entityName: string = '" . $this->entity->getName() . "';
+";
+  }
+
+  protected function attributes(){
+    $this->string .= "readonly entityName: string = '" . $this->entity->getName() . "';
 
 ";
   }

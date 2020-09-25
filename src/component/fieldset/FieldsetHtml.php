@@ -6,27 +6,40 @@ class FieldsetHtml extends GenerateFileEntity {
 
   protected $matFieldCount = 0;
 
-  public function __construct(Entity $entity, $directorio = null) {
-    $file = $entity->getName("xx-yy") . "-fieldset.component.html";
-    if(!$directorio) $directorio = $_SERVER["DOCUMENT_ROOT"]."/".PATH_GEN."/" . "tmp/component/fieldset/" . $entity->getName("xx-yy") . "-fieldset/";
-    parent::__construct($directorio, $file, $entity);
+  public function __construct(Entity $entity, $dir=null, $file=null) {
+    if(!$file) $file = $entity->getName("xx-yy") . "-fieldset.component.html";
+    if(!$dir) $dir = $_SERVER["DOCUMENT_ROOT"]."/".PATH_GEN."/" . "tmp/component/fieldset/" . $entity->getName("xx-yy") . "-fieldset/";
+    parent::__construct($dir, $file, $entity);
   }
 
 
   public function generateCode() {
-    $this->start();
+    $this->header();
+    $this->contentStart();
+    $this->rowStart();
     $this->nf();
     $this->fk();
+    $this->uniqueMultiple();
+    $this->rowEnd();
     $this->end();
   }
 
-  protected function start() {
-    $this->string .= "<mat-card [formGroup]=\"fieldset\">
+  protected function header() {
+    $this->string .= "<mat-card>
   <mat-card-header>
     <mat-card-title>" . $this->getEntity()->getName("Xx Yy") . "</mat-card-title>
   </mat-card-header>
-  <mat-card-content>
-    <div fxLayout=\"row\" fxLayout.lt-md=\"column\" fxLayoutGap=\"10px\">
+";
+  }
+
+  protected function contentStart() {
+    $this->string .= "  <mat-card-content [formGroup]=\"fieldset\">
+";
+  }
+
+  
+  protected function rowStart() {
+    $this->string .= "    <div fxLayout=\"row\" fxLayout.lt-md=\"column\" fxLayoutGap=\"10px\">
       <div fxLayout=\"row\" fxFlex=\"50%\" fxFlex.lt-md=\"100%\" fxLayoutGap=\"10px\" fxLayout.xs=\"column\">
 ";
   }
@@ -61,7 +74,7 @@ class FieldsetHtml extends GenerateFileEntity {
         //case "float": case "integer": case "cuil": case "dni": $this->number($field); break;
         //case "year": $this->year($field); break;
         case "timestamp": break;
-        //case "time": $this->time($field); break;
+        case "time": $this->time($field); break;
         case "select_text": case "select_int": case "select": $this->selectValues($field); break;
         case "textarea": $this->textarea($field); break;
         case "email": $this->email($field); break;
@@ -87,129 +100,59 @@ class FieldsetHtml extends GenerateFileEntity {
 
 
 
-  protected function date(Field $field) {
+  protected function date(Field $field, $sufix="") {
     $this->newRow();
-    $this->string .= "        <div fxFlex=\"auto\">
-          <mat-form-field>
-            <mat-label>{$field->getName('Xx yy')}</mat-label>
-            <input matInput placeholder=\"dd/mm/aaaa\" [matDatepicker]=\"picker\" formControlName=\"{$field->getName()}\">
-            <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-";
-      $this->templateErrorIsNotNull($field); 
-      $this->templateErrorIsUnique($field); 
-      $this->templateErrorDate($field); 
-
-      $this->string .= "          </mat-form-field>
-        </div>
+    $this->string .= "        <core-input-date [field]=\"" . $field->getName("xxYy") . $sufix . "\" [title]=\"'" . $field->getName("Xx Yy") . "'\" fxFlex=\"50%\" fxFlex.xs=\"100%\" fxLayoutAlign=\"center center\"></core-input-timepicker>
 ";
   }
 
-  protected function time(Field $field) {
+  protected function time(Field $field, $sufix = "") {
     $this->newRow();
-    $this->string .= "  <div class=\"form-group form-row\">
-    <label class=\"col-sm-2 col-form-label\">{$field->getName('Xx yy')}</label>
-    <div class=\"col-sm-10\">
-      <ngb-timepicker  placeholder=\"hh:mm\" formControlName=\"" . $field->getName() . "\" [spinners]=\"false\" [ngClass]=\"{'is-invalid':(" . $field->getName("xxYy") . ".invalid && (" . $field->getName("xxYy") . ".dirty || " . $field->getName("xxYy") . ".touched))}\"></ngb-timepicker>
-";
-      $this->templateErrorIsNotNull($field); 
-      $this->templateErrorIsUnique($field); 
-      $this->templateErrorDate($field);
-
-      $this->string .= "    </div>
-  </div>
-";
-  }
-  protected function timestamp(Field $field) {
-    $this->newRow();
-    $this->string .= "  <div class=\"form-group form-row\">
-    <label class=\"col-sm-2 col-form-label\">{$field->getName('Xx yy')}</label>
-    <div class=\"col-sm-10\">
-      <div class=\"input-group\" formGroupName=\"{$field->getName()}\">
-        <input class=\"form-control\" placeholder=\"yyyy-mm-dd\" ngbDatepicker #" . $field->getName("xxYy") . "Date=\"ngbDatepicker\" formControlName=\"date\"  [ngClass]=\"{'is-invalid':" . $field->getName("xxYy") . ".date.invalid && " . $field->getName("xxYy") . ".date.dirty || " . $field->getName("xxYy") . ".date.touched))}\">
-        <div class=\"input-group-append\">
-          <button class=\"btn btn-outline-secondary\" (click)=\"" . $field->getName("xxYy") . "Date.toggle()\" type=\"button\">
-            <span class=\"oi oi-calendar\"></span>
-          </button>
-        </div>
-        <ngb-timepicker formControlName=\"time\"></ngb-timepicker>
-      </div>
-";
-      //$this->templateError($field);
-      $this->string .= "    </div>
-  </div>
+    $this->string .= "        <core-input-timepicker [field]=\"" . $field->getName("xxYy") . $sufix . "\" [title]=\"'" . $field->getName("Xx Yy") . "'\" fxFlex=\"50%\" fxFlex.xs=\"100%\" fxLayoutAlign=\"center center\"></core-input-timepicker>
 ";
   }
 
-  protected function year(Field $field) {
+  protected function year(Field $field, $sufix = "") {
     $this->newRow();
-    $this->string .= "  <div class=\"form-group form-row\">
-    <label class=\"col-sm-2 col-form-label\">" . $field->getName("Xx yy") . "</label>
-    <div class=\"col-sm-10\">
-      <input class=\"form-control\" placeholder=\"yyyy\" type=\"text\" formControlName=\"" . $field->getName() . "\"  [ngClass]=\"{'is-invalid':(" . $field->getName("xxYy") . ".invalid && (" . $field->getName("xxYy") . ".dirty || " . $field->getName("xxYy") . ".touched))}\">
-";
-      $this->templateErrorIsNotNull($field); 
-      $this->templateErrorYear($field); 
-      $this->templateErrorIsUnique($field); 
-      $this->string .= "    </div>
-  </div>
+    $this->string .= "        <core-input-year [field]=\"" . $field->getName("xxYy") . $sufix . "\" [title]=\"'" . $field->getName("Xx Yy") . "'\" fxFlex=\"50%\" fxFlex.xs=\"100%\" fxLayoutAlign=\"center center\"></core-input-year>
 ";
   }
 
-  
-  protected function email(Field $field) {
+  protected function defecto(Field $field, $sufix = "") {
     $this->newRow();
-    $this->string .= "      <div fxFlex=\"auto\">
-        <mat-form-field>
-          <mat-label>{$field->getName('Xx yy')}</mat-label>
-          <input matInput formControlName=\"{$field->getName()}\" placeholder=\"ejemplo@email.com\">
-          <mat-error *ngIf=\"{$field->getName("xxYy")}.hasError('pattern')\">El formato es incorrecto</mat-error>
-";
-      $this->templateErrorIsNotNull($field); 
-      $this->templateErrorIsUnique($field); 
-
-      $this->string .= "        </mat-form-field>
-      </div>
-";
-  }
-
-  protected function defecto(Field $field) {
-    $this->newRow();
-    $this->string .= "        <core-input-text [field]=\"" . $field->getName("xxYy") . "\" [title]=\"'" . $field->getName("Xx Yy") . "'\" fxFlex=\"50%\" fxFlex.xs=\"100%\" fxLayoutAlign=\"center center\"></core-input-text>
+    $this->string .= "        <core-input-text [field]=\"" . $field->getName("xxYy") . $sufix . "\" [title]=\"'" . $field->getName("Xx Yy") . "'\" fxFlex=\"50%\" fxFlex.xs=\"100%\" fxLayoutAlign=\"center center\"></core-input-text>
 ";
   }
 
 
-  protected function textarea(Field $field) {
+  protected function textarea(Field $field, $sufix = "") {
     $this->newRow();
-    $this->string .= "        <core-input-textarea [field]=\"" . $field->getName("xxYy") . "\" [title]=\"'" . $field->getName("Xx Yy") . "'\" fxFlex=\"50%\" fxFlex.xs=\"100%\" fxLayoutAlign=\"center center\"></core-input-textarea>
+    $this->string .= "        <core-input-textarea [field]=\"" . $field->getName("xxYy") . $sufix . "\" [title]=\"'" . $field->getName("Xx Yy") . "'\" fxFlex=\"50%\" fxFlex.xs=\"100%\" fxLayoutAlign=\"center center\"></core-input-textarea>
 ";
   }
 
 
-  protected function checkbox(Field $field) {
+  protected function checkbox(Field $field, $sufix= "") {
     $this->newRow();
-    $this->string .= "        <div fxFlex=\"50%\" fxFlex.xs=\"100%\" fxLayoutAlign=\"center center\">
-          <mat-checkbox formControlName=\"{$field->getName()}\">{$field->getName("Xx Yy")}</mat-checkbox>
-        </div>
+    $this->string .= "        <core-input-checkbox [field]=\"" . $field->getName("xxYy") . $sufix . "\" [title]=\"'" . $field->getName("Xx Yy") . "'\" fxFlex=\"50%\" fxFlex.xs=\"100%\" fxLayoutAlign=\"center center\"></core-input-checkbox>
 ";
   }
 
-  protected function selectValues(Field $field){
+  protected function selectValues(Field $field, $sufix = ""){
     $this->newRow();
-    $this->string .= "        <core-input-select-param [field]=\"" . $field->getName("xxYy") . "\" [options]=\"['" . implode("','",$field->getSelectValues()) . "']\" [title]=\"'" . $field->getName("Xx yy") . "'\" fxFlex=\"50%\" fxFlex.xs=\"100%\" fxLayoutAlign=\"center center\"></core-input-select-param>
+    $this->string .= "        <core-input-select-param [field]=\"" . $field->getName("xxYy") . $sufix . "\" [options]=\"['" . implode("','",$field->getSelectValues()) . "']\" [title]=\"'" . $field->getName("Xx yy") . "'\" fxFlex=\"50%\" fxFlex.xs=\"100%\" fxLayoutAlign=\"center center\"></core-input-select-param>
 ";
   }
 
-  protected function select(Field $field) {
+  protected function select(Field $field, $sufix = "") {
     $this->newRow();
-    $this->string .= "        <core-input-select [field]=\"{$field->getName('xxYy')}\" [entityName]=\"'{$field->getEntityRef()->getName()}'\" [title]=\"'{$field->getName("Xx Yy")}'\" fxFlex=\"50%\" fxFlex.xs=\"100%\" fxLayoutAlign=\"center center\"></core-input-select>
+    $this->string .= "        <core-input-select [field]=\"" . $field->getName('xxYy') . $sufix . "\" [entityName]=\"'{$field->getEntityRef()->getName()}'\" [title]=\"'{$field->getName("Xx Yy")}'\" fxFlex=\"50%\" fxFlex.xs=\"100%\" fxLayoutAlign=\"center center\"></core-input-select>
 ";
   }
 
-  protected function autocomplete(Field $field) {
+  protected function autocomplete(Field $field, $sufix = "") {
     $this->newRow();
-    $this->string .= "        <core-input-autocomplete [field]=\"" . $field->getName("xxYy") . "\" [entityName]=\"'" . $field->getEntityRef()->getName() . "'\" [title]=\"'{$field->getName("Xx Yy")}'\" fxFlex=\"50%\" fxFlex.xs=\"100%\" fxLayoutAlign=\"center center\"></core-input-autocomplete>
+    $this->string .= "        <core-input-autocomplete [field]=\"" . $field->getName("xxYy") . $sufix . "\" [entityName]=\"'" . $field->getEntityRef()->getName() . "'\" [title]=\"'{$field->getName("Xx Yy")}'\" fxFlex=\"50%\" fxFlex.xs=\"100%\" fxLayoutAlign=\"center center\"></core-input-autocomplete>
 ";
   }
 
@@ -228,53 +171,24 @@ class FieldsetHtml extends GenerateFileEntity {
 ";
   }
 
-  protected function end() {
+  protected function uniqueMultiple() {
     if($this->entity->getFieldsUniqueMultiple()) $this->string .= "  <div class=\"text-danger\" *ngIf=\"fieldset.errors\">
     <div *ngIf=\"fieldset.errors.notUnique\">El valor ya se encuentra utilizado: <a routerLink=\"/{$this->entity->getName("xx-yy")}-admin\" [queryParams]=\"{'id':fieldset.errors.notUnique}\">Cargar</a></div>
   </div>
 ";
+  }
+
+  protected function rowEnd() {
     $this->string .= "      </div>
     </div>
-  </mat-card-content>
+";
+  }
+  
+  protected function end() {
+  $this->string .= "  </mat-card-content>
 </mat-card>
 ";
   }
 
-  protected function templateErrorIsNotNull(Field $field){
-    if($field->isNotNull()) $this->string .= "            <mat-error *ngIf=\"{$field->getName('xxYy')}.hasError('required')\">Debe completar valor</mat-error>
-";
-  }
-
-  protected function templateErrorIsUnique(Field $field){
-    if($field->isUnique()) $this->string .= "            <mat-error *ngIf=\"{$field->getName('xxYy')}.hasError('notUnique')\">
-              El valor ya se encuentra utilizado: <a routerLink=\"/{$field->getEntity()->getName("xx-yy")}-admin\" [queryParams]=\"{'{$field->getName()}':{$field->getName('xxYy')}.value}\">Cargar</a>    
-            </mat-error>
-";
-  }
-
-
-
-
-  protected function templateErrorYear(Field $field) {
-    $this->string .= "        <div *ngIf=\"{$field->getName("xxYy")}.errors.nonNumeric\">Ingrese sólo números</div>
-        <div *ngIf=\"{$field->getName("xxYy")}.errors.notYear\">No es un año válido</div>    
-";
-    if($field->getMinLength()) $this->string .= "        <div *ngIf=\"{$field->getName("xxYy")}.errors.minYear\">Valor no permitido</div>
-";
-    if($field->getLength()) $this->string .= "        <div *ngIf=\"{$field->getName("xxYy")}.errors.maxYear\">Valor no permitido</div>
-";    
-  }
-
-  protected function templateErrorDate(Field $field) {
-    $this->string .= "          <mat-error *ngIf=\"{$field->getName("xxYy")}.hasError('matDatepickerParse')\">El formato es incorrecto</mat-error>
-";
-  }
-
-  protected function templateErrorDni(Field $field) {
-    $this->string .= "        <div *ngIf=\"{$field->getName("xxYy")}.errors.pattern\">Ingrese solo números</div>
-        <div *ngIf=\"{$field->getName("xxYy")}.errors.minlength\">Longitud incorrecta</div>
-        <div *ngIf=\"{$field->getName("xxYy")}.errors.maxlength\">Longitud incorrecta</div>
-";
-  }
 
 }

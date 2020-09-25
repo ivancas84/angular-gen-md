@@ -28,6 +28,7 @@ foreach($container->getStructure() as $entity) {
     //components
     case "admin": admin($entity); break;
     case "fieldset": fieldset($entity); break;
+    case "fieldset-array": fieldsetArray($entity); break;
     case "table": table($entity); break;
     case "show": show($entity); break;
     case "search": search($entity); break;
@@ -48,6 +49,7 @@ foreach($container->getStructure() as $entity) {
       //components
       admin($entity);
       fieldset($entity);
+      fieldsetArray($entity);
       table($entity);
       show($entity);
       search($entity);
@@ -130,6 +132,17 @@ function fieldset(Entity $entity) {
 
   require_once("component/fieldset/FieldsetHtml.php");
   $gen = new FieldsetHtml($entity);
+  $gen->generate();
+}
+
+
+function fieldsetArray(Entity $entity) {
+  require_once("component/fieldsetArray/FieldsetArrayTs.php");
+  $gen = new FieldsetArrayTs($entity);
+  $gen->generate();
+
+  require_once("component/fieldsetArray/FieldsetArrayHtml.php");
+  $gen = new FieldsetArrayHtml($entity);
   $gen->generate();
 }
 
