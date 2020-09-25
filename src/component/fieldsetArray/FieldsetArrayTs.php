@@ -22,13 +22,21 @@ export class " . $this->entity->getName("XxYy") . "FieldsetArrayComponent extend
 ";
   }
 
+  protected function formGroup(){
+    require_once("component/fieldsetArray/_FormGroup.php");
+    $gen = new FieldsetArrayTs_formGroup($this->entity);
+    $this->string .= $gen->generate();
+  }
+  
+
   protected function getters(){
     foreach($this->entity->getFieldsByType(["pk","nf","fk"]) as $field){
       if(!$field->isAdmin()) continue;
-      $this->string .= "  {$field->getName('xxYy')}(index) { return this.fieldset.at(index).get('{$field->getName()}')}
+      $this->string .= "  {$field->getName('xxYy')}(index: number) { return this.fieldset.at(index).get('{$field->getName()}')}
 ";
     }
-    $this->string .= "
+    $this->string .= "  _delete(index: number) { return this.fieldset.at(index).get('_delete')}
+
 ";
   }
 

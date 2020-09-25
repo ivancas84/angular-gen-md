@@ -75,11 +75,6 @@ export class " . $this->entity->getName("XxYy") . "FieldsetComponent extends Fie
 ";
   }
 
-  protected function initData(){
-    require_once("component/fieldset/_InitData.php");
-    $gen = new Gen_initData($this->entity);
-    $this->string .= $gen->generate();
-  }
 
   protected function getters(){
     foreach($this->entity->getFieldsByType(["pk","nf","fk"]) as $field){

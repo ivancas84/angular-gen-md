@@ -16,7 +16,9 @@ class FieldsetArrayHtml extends FieldsetHtml {
   
   protected function contentStart() {
     $this->string .= "  <mat-card-content>
-    <div fxLayout=\"row\" *ngFor=\"let row of fieldset.controls; let i=index\" [formGroup]=\"fg(i)\">
+    <div *ngFor=\"let row of fieldset.controls; let i=index\" [formGroup]=\"fg(i)\">
+    
+    <div fxLayout=\"row\" *ngIf=\"!_delete(i).value\">
 
 ";
   }
@@ -48,6 +50,8 @@ class FieldsetArrayHtml extends FieldsetHtml {
 
   protected function end() {
     $this->string .= "    </div>
+    
+    </div>
     <button mat-mini-fab color=\"primary\" (click)=\"add()\" type=\"button\"><mat-icon>add</mat-icon></button>
     
     </mat-card-content>
