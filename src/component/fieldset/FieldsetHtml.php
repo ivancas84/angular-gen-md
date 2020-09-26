@@ -173,13 +173,13 @@ class FieldsetHtml extends GenerateFileEntity {
 
   protected function rowEnd() {
     $this->string .= "      </div>
+    </div>    
 ";
-    if($this->entity->getFieldsUniqueMultiple()) $this->string .= "  <div class=\"text-danger\" *ngIf=\"fieldset.errors\">
-<div *ngIf=\"fieldset.errors.notUnique\">El valor ya se encuentra utilizado: <a routerLink=\"/{$this->entity->getName("xx-yy")}-admin\" [queryParams]=\"{'id':fieldset.errors.notUnique}\">Cargar</a></div>
-</div>
+    if($this->entity->getFieldsUniqueMultiple()) $this->string .= "    <div class=\"text-danger\" *ngIf=\"fieldset.errors\">
+      <div *ngIf=\"fieldset.errors.notUnique\">El valor ya se encuentra utilizado: <a routerLink=\"/{$this->entity->getName("xx-yy")}-admin\" [queryParams]=\"{'id':fieldset.errors.notUnique}\">Cargar</a></div>
+    </div>
 ";
-    $this->string .= "    </div>
-";
+
   }
   
   protected function end() {
