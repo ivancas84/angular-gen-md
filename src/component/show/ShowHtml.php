@@ -17,8 +17,10 @@ class Gen_ShowHtml extends GenerateFileEntity {
   <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>
 </ng-template>
 
-<!-- app-" . $this->getEntity()->getName("xx-yy") . "-search [display$]=\"display\$\"></app-" . $this->getEntity()->getName("xx-yy") . "-search -->
-<app-" . $this->getEntity()->getName("xx-yy") . "-table *ngIf=\"load; else loading\" [data$]=\"data$\" [collectionSize$]=\"collectionSize$\" [display$]=\"display$\"></app-" . $this->getEntity()->getName("xx-yy") . "-table>
+<div *ngIf=\"(load$ | async) && load; else loading\">
+  <!-- app-" . $this->getEntity()->getName("xx-yy") . "-search [display$]=\"display\$\"></app-" . $this->getEntity()->getName("xx-yy") . "-search -->
+  <app-" . $this->getEntity()->getName("xx-yy") . "-table *ngIf=\"load; else loading\" [data$]=\"data$\" [collectionSize$]=\"collectionSize$\" [display]=\"display\"></app-" . $this->getEntity()->getName("xx-yy") . "-table>
+</div>
 ";
 
   }
