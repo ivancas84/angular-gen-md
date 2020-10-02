@@ -20,6 +20,8 @@ class FieldsetArrayHtml extends FieldsetHtml {
     
     <div fxLayout=\"row\" *ngIf=\"!_delete(i).value\">
 
+    <div fxLayout=\"column\">
+
 ";
   }
 
@@ -49,7 +51,9 @@ class FieldsetArrayHtml extends FieldsetHtml {
   }
 
   protected function end() {
-    $this->string .= "    </div>
+    $this->string .= "    </div> <!--div fxLayout=\"row\" *ngIf=\"!_delete(i).value\"-->
+
+    <div *ngIf=\"!_delete(i).value\"><mat-divider></mat-divider><br></div>
     
     </div>
     <button mat-mini-fab color=\"primary\" (click)=\"add()\" type=\"button\"><mat-icon>add</mat-icon></button>
@@ -62,12 +66,16 @@ class FieldsetArrayHtml extends FieldsetHtml {
   protected function rowEnd() {
     $this->string .= "      </div>
     </div>
+
 ";
     if($this->entity->getFieldsUniqueMultiple()) $this->string .= "    <div class=\"text-danger\" *ngIf=\"fieldset.errors\">
       <div *ngIf=\"fieldset.errors.notUnique\">El valor ya se encuentra utilizado: <a routerLink=\"/{$this->entity->getName("xx-yy")}-admin\" [queryParams]=\"{'id':fieldset.errors.notUnique}\">Cargar</a></div>
     </div>
+
 ";
-    $this->string .= "    <div fxLayout=\"row\" fxFlex=\"10%\" fxLayoutGap=\"10px\" fxLayout.xs=\"column\" fxLayoutAlign=\"center center\">
+    $this->string .= "    </div> <!--div fxLayout=\"column\"-->
+    
+    <div fxLayout=\"row\" fxFlex=\"10%\" fxLayoutGap=\"10px\" fxLayout.xs=\"column\" fxLayoutAlign=\"center center\">
       <button mat-mini-fab color=\"warn\" (click)=\"remove(i)\" type=\"button\"><mat-icon>delete</mat-icon></button>
     </div>
 
@@ -88,7 +96,7 @@ class FieldsetArrayHtml extends FieldsetHtml {
         //case "year": $this->year($field); break;
         case "timestamp": break;
         case "time": $this->time($field, $this->sufix); break;
-        case "select_text": case "select_int": case "select": $this->selectValues($field); break;
+        case "select_text": case "select_int": case "select": $this->selectValues($field, $this->sufix); break;
         case "textarea": $this->textarea($field, $this->sufix); break;
         case "email": $this->email($field, $this->sufix); break;
         default: $this->defecto($field, $this->sufix); //name
