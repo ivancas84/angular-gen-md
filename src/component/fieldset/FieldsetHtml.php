@@ -101,7 +101,7 @@ class FieldsetHtml extends GenerateFileEntity {
 
   protected function date(Field $field, $sufix="") {
     $this->newRow();
-    $this->string .= "        <core-input-date [field]=\"" . $field->getName("xxYy") . $sufix . "\" [title]=\"'" . $field->getName("Xx Yy") . "'\" fxFlex=\"50%\" fxFlex.xs=\"100%\" fxLayoutAlign=\"center center\"></core-input-timepicker>
+    $this->string .= "        <core-input-date [field]=\"" . $field->getName("xxYy") . $sufix . "\" [title]=\"'" . $field->getName("Xx Yy") . "'\" fxFlex=\"50%\" fxFlex.xs=\"100%\" fxLayoutAlign=\"center center\"></core-input-date>
 ";
   }
 
