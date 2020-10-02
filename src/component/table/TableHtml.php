@@ -29,7 +29,7 @@ class GenTableHtml extends GenerateFileEntity {
   <mat-card-header>
     <mat-card-title>" . $this->getEntity()->getName("Xx Yy") . "</mat-card-title>
   </mat-card-header>
-  <mat-card-content *ngIf=\"load$ | async; else loading\">
+  <mat-card-content *ngIf=\"(load$ | async) && load; else loading\">
     <table mat-table [dataSource]=\"dataSource\" matSort matSortDisableClear (matSortChange)=\"onChangeSort(\$event)\" class=\"mat-elevation-z8\">
 ";
   }
