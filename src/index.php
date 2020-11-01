@@ -7,47 +7,22 @@
  */
 
 require_once("../config/config.php");
-require_once("class/tools/Filter.php");
 require_once("class/Container.php");
 
-require_once("service/data-definition-loader/DataDefinitionLoader.php");
 
-$generate = Filter::get("gen");
 
 $container = new Container();
-switch($generate) {
-  case null: case "loader": loader($container->getStructure()); break;
-}
-
+storageService($container->getStructure());
+labelService($container->getStructure());
 
 foreach($container->getStructure() as $entity) {
-  switch($generate){
-    //services
-    case "data-definition": dataDefinition($entity); break;
-    
-    //components
-    case "admin": admin($entity); break;
-    case "fieldset": fieldset($entity); break;
-    case "table": table($entity); break;
-    case "show": show($entity); break;
-    case "search": search($entity); break;
-    case "search-params": searchParams($entity); break;
-    case "input-picker": inputPicker($entity); break;
-
-    /*
-    case "detail": detail($entity); break;
-    case "card": card($entity); break;
-    case "grid": grid($entity); break;
-    case "unordered-list": unorderedList($entity); break;
-    case "search-condition": searchCondition($entity); break;
-    case "search-order": searchOrder($entity); break;
-    */
-    case null:
+  
       //services
-      dataDefinition($entity);
+      //dataDefinition($entity);
       //components
       admin($entity);
       fieldset($entity);
+      fieldsetArray($entity);
       table($entity);
       show($entity);
       search($entity);
@@ -63,23 +38,22 @@ foreach($container->getStructure() as $entity) {
       detail($entity);
       card($entity);
       */
-    break;
-  }
 }
 
 
-function loader(array $structure) {
-  $gen = new DataDefinitionLoaderService($structure);
+function storageService(array $structure) {
+  require_once("service/data-definition-storage/DataDefinitionStorage.php");
+  $gen = new GenDataDefinitionStorage($structure);
   $gen->generate();
 }
 
-function dataDefinition(Entity $entity) {
-  require_once("class/data-definition/_DataDefinition.php");
-  $gen = new _ClassDataDefinition($entity);
+function labelService(array $structure) {
+  require_once("service/data-definition-label/_DataDefinitionLabel.php");
+  $gen = new _GenDataDefinitionLabel($structure);
   $gen->generate();
 
-  require_once("class/data-definition/DataDefinition.php");
-  $gen = new ClassDataDefinition($entity);
+  require_once("service/data-definition-label/DataDefinitionLabel.php");
+  $gen = new GenDataDefinitionLabel($structure);
   $gen->generateIfNotExists();
 }
 
@@ -123,6 +97,17 @@ function card(Entity $entity) {
   $gen->generate();
 }
 
+function label(Entity $entity) {
+  require_once("component/label/LabelTs.php");
+  $gen = new GenLabelTs($entity);
+  $gen->generate();
+
+  require_once("component/label/LabelHtml.php");
+  $gen = new GenLabelHtml($entity);
+  $gen->generate();
+}
+
+
 function fieldset(Entity $entity) {
   require_once("component/fieldset/FieldsetTs.php");
   $gen = new FieldsetTs($entity);
@@ -130,6 +115,17 @@ function fieldset(Entity $entity) {
 
   require_once("component/fieldset/FieldsetHtml.php");
   $gen = new FieldsetHtml($entity);
+  $gen->generate();
+}
+
+
+function fieldsetArray(Entity $entity) {
+  require_once("component/fieldsetArray/FieldsetArrayTs.php");
+  $gen = new FieldsetArrayTs($entity);
+  $gen->generate();
+
+  require_once("component/fieldsetArray/FieldsetArrayHtml.php");
+  $gen = new FieldsetArrayHtml($entity);
   $gen->generate();
 }
 

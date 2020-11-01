@@ -2,7 +2,7 @@
 
 require_once("Generate.php");
 
-class DataDefinitionLoaderService_get extends Generate {
+class GenDataDefinitionStorage_storage extends Generate {
 
   protected $structure; //estructura de tablas
 
@@ -12,14 +12,14 @@ class DataDefinitionLoaderService_get extends Generate {
 
 
   protected function start(){
-    $this->string .= "  get(name: string): DataDefinition {
-    switch(name) {
+    $this->string .= "  storage(entityName: string, row: { [index: string]: any }): void {
+    switch(entityName) {
 ";
   }
 
   protected function body(){
     foreach($this->structure as $entity){
-      $this->string .= "      case \"" . $entity->getName() . "\": { return new " . $entity->getName("XxYy") . "DataDefinition(this.stg, this.parser); }
+      $this->string .= "      case \"" . $entity->getName() . "\": this.storage" . $entity->getName("XxYy") . "(row); break;
 ";
       }
   }

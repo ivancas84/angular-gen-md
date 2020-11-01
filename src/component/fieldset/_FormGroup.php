@@ -35,6 +35,7 @@ class FieldsetTs_formGroup extends GenerateEntity {
         case "dni": $this->dni($field); break;
         case "year": $this->year($field); break;
         case "timestamp":  break;
+        case "float": $this->float($field); break;
         /**
          * La administracion de timestamp no se define debido a que no hay un controlador que actualmente lo soporte
          * Para el caso de que se requiera se deben definir campos adicionales para la fecha y hora independientes
@@ -148,11 +149,40 @@ class FieldsetTs_formGroup extends GenerateEntity {
     $this->formControlEnd();
   }
 
+  protected function float(Field $field) {
+    $validators = [];
+    if($this->validatorRequired($field)) array_push($validators, $this->validatorRequired($field));
+
+    $asyncValidators = [];
+    if($this->asyncValidatorUnique($field)) array_push($asyncValidators, $this->asyncValidatorUnique($field));
+    $l = ($field->getLength())? explode(",",$field->getLength()) : [10];
+    if(isset($l[1])) {
+      $m = $l[0] - $l[1];
+      $d = $l[1];
+    } else {
+      $m = $l[0];
+      $d = 0;
+    }
+
+    $pattern = "^-?[0-9]";
+    if($d) $pattern .= "+(\\\\.[0-9]{1," . $d . "})?$";
+    array_push($validators, "Validators.pattern('" . $pattern. "')");
+    $v = str_pad("", $m, "9", STR_PAD_LEFT);
+    if($d) $v .= ".".str_pad("", $d, "9", STR_PAD_RIGHT);
+    ($field->getMax()) ? array_push($validators, "Validators.max(" . $field->getMax() . ")") :  array_push($validators, "Validators.max(" . $v . ")");
+    ($field->getMin()) ? array_push($validators, "Validators.min(" . $field->getMin() . ")") :  array_push($validators, "Validators.max(-" . $v . ")");
+
+    $this->formControlStart($field);
+    $this->formControlValidators($validators);
+    $this->formControlAsyncValidators($asyncValidators);
+    $this->formControlEnd();
+  }
+
   protected function year(Field $field) {
     $validators = [];
     if($this->validatorRequired($field)) array_push($validators, $this->validatorRequired($field));    
-    if($field->getLength()) array_push($validators, "this.validators.maxYear('" . $field->getLength() . "')");
-    if($field->getMinLength()) array_push($validators, "this.validators.minYear('" . $field->getMinLength() . "')");
+    if($field->getMax()) array_push($validators, "this.validators.maxYear('" . $field->getLength() . "')");
+    if($field->getMin()) array_push($validators, "this.validators.minYear('" . $field->getMinLength() . "')");
     array_push($validators, "this.validators.year()");
     
     $asyncValidators = [];
