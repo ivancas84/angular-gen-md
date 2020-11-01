@@ -81,8 +81,6 @@ class FieldsetArrayHtml extends FieldsetHtml {
 
 ";
   }
-  
-
     
   protected function nf() {
     $fields = $this->getEntity()->getFieldsNf();
@@ -98,12 +96,10 @@ class FieldsetArrayHtml extends FieldsetHtml {
         case "time": $this->time($field, $this->sufix); break;
         case "select_text": case "select_int": case "select": $this->selectValues($field, $this->sufix); break;
         case "textarea": $this->textarea($field, $this->sufix); break;
-        case "email": $this->email($field, $this->sufix); break;
-        default: $this->defecto($field, $this->sufix); //name
+        default: $this->defecto($field, $this->sufix); //name, email
       }
     }
   }
-
 
   public function fk(){
     $fields = $this->getEntity()->getFieldsFk();
