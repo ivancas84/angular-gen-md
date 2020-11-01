@@ -18,8 +18,8 @@ class Gen_ShowHtml extends GenerateFileEntity {
 </ng-template>
 
 <div *ngIf=\"(load$ | async) && load; else loading\">
-  <!-- app-" . $this->getEntity()->getName("xx-yy") . "-search [display$]=\"display\$\"></app-" . $this->getEntity()->getName("xx-yy") . "-search -->
-  <app-" . $this->getEntity()->getName("xx-yy") . "-table *ngIf=\"load; else loading\" [data$]=\"data$\" [collectionSize$]=\"collectionSize$\" [display]=\"display\"></app-" . $this->getEntity()->getName("xx-yy") . "-table>
+  <!-- app-" . $this->getEntity()->getName("xx-yy") . "-search [display]=\"display\"></app-" . $this->getEntity()->getName("xx-yy") . "-search -->
+  <app-" . $this->getEntity()->getName("xx-yy") . "-table [data]=\"data\" [length]=\"length\" [display]=\"display\"></app-" . $this->getEntity()->getName("xx-yy") . "-table>
 </div>
 ";
 

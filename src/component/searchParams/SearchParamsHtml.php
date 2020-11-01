@@ -19,7 +19,7 @@ class Gen_SearchParamsHtml extends GenerateFileEntity {
   }
 
   protected function start() {
-    $this->string .= "<mat-card *ngIf=\"load$ | async\" [formGroup]=\"fieldset\">
+    $this->string .= "<mat-card [formGroup]=\"fieldset\">
   <mat-card-content>
     <div fxLayout=\"row\" fxLayout.lt-md=\"column\" fxLayoutGap=\"10px\">
       <div fxLayout=\"row\" fxFlex=\"auto\" fxLayoutGap=\"10px\" fxLayout.xs=\"column\">
