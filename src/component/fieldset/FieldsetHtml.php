@@ -76,8 +76,7 @@ class FieldsetHtml extends GenerateFileEntity {
         case "time": $this->time($field); break;
         case "select_text": case "select_int": case "select": $this->selectValues($field); break;
         case "textarea": $this->textarea($field); break;
-        case "email": $this->email($field); break;
-        default: $this->defecto($field); //name
+        default: $this->defecto($field); //name, email
       }
     }
   }
