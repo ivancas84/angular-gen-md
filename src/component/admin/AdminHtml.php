@@ -16,8 +16,8 @@ class Gen_AdminHtml extends GenerateFileEntity {
     <mat-progress-bar mode=\"indeterminate\"></mat-progress-bar>
   </ng-template>
   
-  <form *ngIf=\"(loadParams$ | async)\" [formGroup]=\"adminForm\" (ngSubmit)=\"onSubmit()\" novalidate autocomplete=\"off\">
-    <div *ngIf=\"(loadDisplay$ | async) && load; else loading\">  
+  <form *ngIf=\"(loadParams$ | async); else loading\" [formGroup]=\"adminForm\" (ngSubmit)=\"onSubmit()\" novalidate autocomplete=\"off\">
+    <div *ngIf=\"(loadDisplay$ | async); else loading\">  
       <app-" . $this->getEntity()->getName("xx-yy") . "-fieldset [form]=\"adminForm\" [data]=\"data\"></app-" . $this->getEntity()->getName("xx-yy") . "-fieldset>
     
       <button mat-raised-button [disabled]=\"adminForm.pending || isSubmitted\" type=\"submit\" color=\"primary\">Aceptar</button>&nbsp;
