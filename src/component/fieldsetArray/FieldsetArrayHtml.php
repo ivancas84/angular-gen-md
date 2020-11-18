@@ -20,13 +20,13 @@ class FieldsetArrayHtml extends FieldsetHtml {
     
     <div fxLayout=\"row\" *ngIf=\"!_delete(i).value\">
 
-    <div fxLayout=\"column\">
+    <div fxLayout=\"column\" fxFlex=\"90%\">
 
 ";
   }
 
   protected function rowStart() {
-    $this->string .= "    <div fxLayout=\"row\" fxFlex=\"90%\" fxLayout.lt-md=\"column\" fxLayoutGap=\"10px\">
+    $this->string .= "    <div fxLayout=\"row\" fxFlex=\"100%\" fxLayout.lt-md=\"column\" fxLayoutGap=\"10px\">
       <div fxLayout=\"row\" fxFlex=\"50%\" fxFlex.lt-md=\"100%\" fxLayoutGap=\"10px\" fxLayout.xs=\"column\">
 ";
   }
@@ -35,7 +35,7 @@ class FieldsetArrayHtml extends FieldsetHtml {
     if($this->matFieldCount && ($this->matFieldCount % 4 == 0)){
       $this->string .= "      </div>
     </div>  
-    <div fxLayout=\"row\" fxFlex=\"90%\" fxLayout.lt-md=\"column\" fxLayoutGap=\"10px\">
+    <div fxLayout=\"row\" fxFlex=\"100%\" fxLayout.lt-md=\"column\" fxLayoutGap=\"10px\">
       <div fxLayout=\"row\" fxFlex=\"50%\" fxFlex.lt-md=\"100%\" fxLayoutGap=\"10px\" fxLayout.xs=\"column\">
 ";
     } 
