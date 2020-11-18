@@ -79,7 +79,7 @@ export class " . $this->entity->getName("XxYy") . "FieldsetComponent extends Fie
   protected function getters(){
     foreach($this->entity->getFieldsByType(["pk","nf","fk"]) as $field){
       if(!$field->isAdmin()) continue;
-      $this->string .= "  get {$field->getName('xxYy')}() { return this.fieldset.get('{$field->getName()}')}
+      $this->string .= "  get {$field->getName('xxYy')}() { return this.fieldset.controls['{$field->getName()}']; }
 ";
     }
     $this->string .= "
