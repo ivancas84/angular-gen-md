@@ -29,7 +29,6 @@ class FieldsetTs extends GenerateFileEntity {
   protected function imports(){
     $this->string .= "import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DataDefinitionService } from '@service/data-definition/data-definition.service';
 import { ValidatorsService } from '@service/validators/validators.service';
 import { Router } from '@angular/router';
 import { SessionStorageService } from '@service/storage/session-storage.service';
@@ -64,7 +63,6 @@ export class " . $this->entity->getName("XxYy") . "FieldsetComponent extends Fie
   protected function constructor(){
     $this->string .= "  constructor(
     protected fb: FormBuilder, 
-    protected dd: DataDefinitionService, 
     protected validators: ValidatorsService,
     protected router: Router, 
     protected storage: SessionStorageService 

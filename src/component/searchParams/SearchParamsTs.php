@@ -13,7 +13,6 @@ class Gen_SearchParamsTs extends GenerateFileEntity {
 
   protected function generateCode(){
     $this->start();
-    $this->constructor();
     $this->formGroup();
     $this->getters();
     $this->end();
@@ -25,7 +24,6 @@ class Gen_SearchParamsTs extends GenerateFileEntity {
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Display } from '@class/display';
-import { DataDefinitionService } from '@service/data-definition/data-definition.service';
 import { SearchParamsComponent } from '@component/search-params/search-params.component';
 
 @Component({
@@ -33,15 +31,6 @@ import { SearchParamsComponent } from '@component/search-params/search-params.co
   templateUrl: './" . $this->entity->getName("xx-yy") . "-search-params.component.html',
 })
 export class " . $this->entity->getName("XxYy") . "SearchParamsComponent extends SearchParamsComponent {
-
-";
-  }
-
-  public function constructor(){
-    $this->string .= "  constructor (
-    protected fb: FormBuilder, 
-    protected dd: DataDefinitionService
-  ) { super(fb); }
 
 ";
   }
@@ -56,7 +45,7 @@ export class " . $this->entity->getName("XxYy") . "SearchParamsComponent extends
     foreach($this->entity->getFieldsByType(["nf","fk"]) as $field){
       switch($field->getDataType()){
         case "textarea": break;
-        default: $this->string .= "  get {$field->getName('xxYy')}() { return this.fieldset.get('{$field->getName()}')}
+        default: $this->string .= "  get {$field->getName('xxYy')}() { return this.fieldset.controls['{$field->getName()}']; }
 "; 
       }
       
