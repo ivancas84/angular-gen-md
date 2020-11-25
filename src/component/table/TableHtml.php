@@ -21,9 +21,12 @@ class GenTableHtml extends GenerateFileEntity {
   protected function start(){
     $this->string .= "<mat-card>
   <mat-card-header>
-    <mat-card-title>" . $this->getEntity()->getName("Xx Yy") . "</mat-card-title>
+    <mat-card-title>
+      " . $this->getEntity()->getName("Xx Yy") . " <button mat-mini-fab color=\"primary\" (click)=\"copyContent()\"><mat-icon>content_copy</mat-icon></button>
+      <button mat-mini-fab color=\"primary\" (click)=\"printContent()\"><mat-icon>print</mat-icon></button>
+    </mat-card-title>
   </mat-card-header>
-  <mat-card-content>
+  <mat-card-content #content>
     <table mat-table [dataSource]=\"data\" matSort matSortDisableClear (matSortChange)=\"onChangeSort(\$event)\" class=\"mat-elevation-z8\">
 ";
   }
