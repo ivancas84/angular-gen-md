@@ -11,14 +11,12 @@ class GenTableHtml extends GenerateFileEntity {
     parent::__construct($directorio, $file, $entity);
   }
 
-
   public function generateCode() {
     $this->start();
     $this->nf();
     $this->fk();
     $this->end();
   }
-
 
   protected function start(){
     $this->string .= "<mat-card>
@@ -29,7 +27,6 @@ class GenTableHtml extends GenerateFileEntity {
     <table mat-table [dataSource]=\"data\" matSort matSortDisableClear (matSortChange)=\"onChangeSort(\$event)\" class=\"mat-elevation-z8\">
 ";
   }
-
 
   protected function nf(){
     foreach ($this->getEntity()->getFieldsNf() as $field) {
@@ -43,8 +40,6 @@ class GenTableHtml extends GenerateFileEntity {
     }
   }
 
-
-
   protected function fk(){
     foreach($this->getEntity()->getFieldsFk() as $field){
       switch($field->getSubtype()){
@@ -52,7 +47,6 @@ class GenTableHtml extends GenerateFileEntity {
       }
     }
   }
-
 
   protected function end(){
     $this->string .= "      <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>
