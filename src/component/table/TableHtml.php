@@ -54,6 +54,7 @@ class GenTableHtml extends GenerateFileEntity {
   protected function end(){
     $this->string .= "      <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>
       <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>
+      <!--tr mat-footer-row *matFooterRowDef=\"displayedColumns; sticky: true\"></tr-->
     </table>  
     <mat-paginator *ngIf=\"display && length\"
                    [length]=\"length\"
@@ -76,6 +77,7 @@ class GenTableHtml extends GenerateFileEntity {
           <a [routerLink]=\"['/" . $this->getEntity()->getName("xx-yy") . "-admin']\" [queryParams]=\"{id:row.id}\" ><span class=\"oi oi-pencil\" title=\"Modificar\"></span></a>              
           <!-- button type=\"button\" (click)=\"delete(i)\"><span class=\"oi oi-trash\" title=\"Eliminar\"></span></button -->
         </td>
+        <td mat-footer-cell *matFooterCellDef> footer.options </td>
       </ng-container>
 
 ";
@@ -85,6 +87,7 @@ class GenTableHtml extends GenerateFileEntity {
     $this->string .= "      <ng-container matColumnDef=\"{$field->getName()}\">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> {$field->getName('Xx Yy')} </th>
         <td mat-cell *matCellDef=\"let row\"> {{row." . $field->getName() . "}} </td>
+        <td mat-footer-cell *matFooterCellDef> footer." . $field->getName() . " </td>
       </ng-container>
 
 ";
@@ -94,6 +97,7 @@ class GenTableHtml extends GenerateFileEntity {
     $this->string .= "      <ng-container matColumnDef=\"{$field->getName()}\">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> {$field->getName('Xx Yy')} </th>
         <td mat-cell *matCellDef=\"let row\" title=\"{{row." . $field->getName() . "}}\"> {{row." . $field->getName() . " | summary}} </td>
+        <td mat-footer-cell *matFooterCellDef> footer." . $field->getName() . " </td>
       </ng-container>
 
 ";
@@ -103,6 +107,7 @@ class GenTableHtml extends GenerateFileEntity {
     $this->string .= "      <ng-container matColumnDef=\"{$field->getName()}\">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> {$field->getName('Xx Yy')} </th>
         <td mat-cell *matCellDef=\"let row\"> {{row." . $field->getName() . " | toDate | date:'dd/MM/yyyy'}} </td>
+        <td mat-footer-cell *matFooterCellDef> footer." . $field->getName() . " </td>
       </ng-container>
 
 ";
@@ -112,6 +117,7 @@ class GenTableHtml extends GenerateFileEntity {
     $this->string .= "      <ng-container matColumnDef=\"{$field->getName()}\">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> {$field->getName('Xx Yy')} </th>
         <td mat-cell *matCellDef=\"let row\"> {{row." . $field->getName() . " | siNo}} </td>
+        <td mat-footer-cell *matFooterCellDef> footer." . $field->getName() . " </td>
       </ng-container>
 
 ";
@@ -121,6 +127,7 @@ class GenTableHtml extends GenerateFileEntity {
     $this->string .= "      <ng-container matColumnDef=\"{$field->getName()}\">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> {$field->getName('Xx Yy')} </th>
         <td mat-cell *matCellDef=\"let row\"> {{row." . $field->getName() . " | toDate | date:'HH:mm'}} </td>
+        <td mat-footer-cell *matFooterCellDef> footer." . $field->getName() . " </td>
       </ng-container>
 
 ";
@@ -130,6 +137,7 @@ class GenTableHtml extends GenerateFileEntity {
     $this->string .= "      <ng-container matColumnDef=\"{$field->getName()}\">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> {$field->getName('Xx Yy')} </th>
         <td mat-cell *matCellDef=\"let row\"> {{row." . $field->getName() . " | toDate | date:'dd/MM/yyyy HH:mm'}} </td>
+        <td mat-footer-cell *matFooterCellDef> footer." . $field->getName() . " </td>
       </ng-container>
 
 ";
@@ -141,6 +149,7 @@ class GenTableHtml extends GenerateFileEntity {
         <td mat-cell *matCellDef=\"let row\"> 
           <a [routerLink]=\"['/" . $field->getEntityRef()->getName("xx-yy") . "-show']\" [queryParams]=\"{id:row." . $field->getName() . "}\" >{{row." . $field->getName() . " | label:'{$field->getEntityRef()->getName()}'}}</a>
         </td>
+        <td mat-footer-cell *matFooterCellDef> footer." . $field->getName() . " </td>
       </ng-container>
 
 ";
