@@ -21,6 +21,7 @@ foreach($container->getStructure() as $entity) {
       //dataDefinition($entity);
       //components
       admin($entity);
+      detail($entity);
       fieldset($entity);
       fieldsetArray($entity);
       table($entity);
