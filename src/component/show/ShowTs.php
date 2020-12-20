@@ -22,13 +22,26 @@ export class " . $this->entity->getName("XxYy") . "ShowComponent extends ShowCom
 
   readonly entityName: string = \"" . $this->entity->getName() . "\";
 
-}
+";
+  }
+
+  
+  protected function infoColumns(){
+    require_once("component/show/_InfoColumns.php");
+    $gen = new GenShowTs_infoColumns($this->entity);
+    $this->string .= $gen->generate();
+  }
+
+  protected function end(){
+    $this->string .= "}
 
 ";
   }
 
   protected function generateCode() { //@override
     $this->start();
+    $this->infoColumns();
+    $this->end();
   }
 
 }
