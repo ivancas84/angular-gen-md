@@ -3,7 +3,7 @@
 require_once("GenerateEntity.php");
 
 
-class GenShowTs_infoColumns extends GenerateEntity {
+class GenShowTs_fields extends GenerateEntity {
 
 
   public function generate() {
@@ -17,7 +17,7 @@ class GenShowTs_infoColumns extends GenerateEntity {
 
 
   protected function start() {
-    $this->string .= "  infoColumns = [
+    $this->string .= "  fields = [
 ";
   }
 

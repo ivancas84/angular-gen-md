@@ -26,9 +26,9 @@ export class " . $this->entity->getName("XxYy") . "ShowComponent extends ShowCom
   }
 
   
-  protected function infoColumns(){
-    require_once("component/show/_InfoColumns.php");
-    $gen = new GenShowTs_infoColumns($this->entity);
+  protected function fields(){
+    require_once("component/show/_Fields.php");
+    $gen = new GenShowTs_fields($this->entity);
     $this->string .= $gen->generate();
   }
 
@@ -40,7 +40,7 @@ export class " . $this->entity->getName("XxYy") . "ShowComponent extends ShowCom
 
   protected function generateCode() { //@override
     $this->start();
-    $this->infoColumns();
+    $this->fields();
     $this->end();
   }
 
