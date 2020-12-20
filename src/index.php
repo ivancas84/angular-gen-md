@@ -24,12 +24,10 @@ foreach($container->getStructure() as $entity) {
       detail($entity);
       fieldset($entity);
       fieldsetArray($entity);
-      table($entity);
       show($entity);
       search($entity);
       searchParams($entity);
       inputPicker($entity);
-
 
       /*
       searchCondition($entity);
@@ -37,7 +35,6 @@ foreach($container->getStructure() as $entity) {
       grid($entity);
       unorderedList($entity);
       detail($entity);
-      card($entity);
       */
 }
 
@@ -80,7 +77,7 @@ function admin(Entity $entity) {
 
 function detail(Entity $entity) {
   require_once("component/detail/DetailTs.php");
-  $gen = new Gen_DetailTs($entity);
+  $gen = new GenDetailTs($entity);
   $gen->generate();
 
   require_once("component/detail/DetailHtml.php");
@@ -88,15 +85,6 @@ function detail(Entity $entity) {
   $gen->generate();
 }
 
-function card(Entity $entity) {
-  require_once("component/card/CardTs.php");
-  $gen = new GenCardTs($entity);
-  $gen->generate();
-
-  require_once("component/card/CardHtml.php");
-  $gen = new GenCardHtml($entity);
-  $gen->generate();
-}
 
 function label(Entity $entity) {
   require_once("component/label/LabelTs.php");
@@ -130,15 +118,6 @@ function fieldsetArray(Entity $entity) {
   $gen->generate();
 }
 
-function table(Entity $entity) {
-  require_once("component/table/TableTs.php");
-  $gen = new GenTableTs($entity);
-  $gen->generate();
-
-  require_once("component/table/TableHtml.php");
-  $gen = new GenTableHtml($entity);
-  $gen->generate();
-}
 
 function grid(Entity $entity) {
   require_once("component/showElement/grid/GridTs.php");

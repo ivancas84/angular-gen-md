@@ -18,7 +18,7 @@ class Gen_DetailHtml extends GenerateFileEntity {
 
 <div *ngIf=\"(load$ | async); else loading\">
   <mat-progress-bar *ngIf=\"!load\" mode=\"indeterminate\"></mat-progress-bar>
-  <app-" . $this->getEntity()->getName("xx-yy") . "-card [data]=\"data\"></app-" . $this->getEntity()->getName("xx-yy") . "-card>
+  <core-card-dynamic [fields]=\"fields\" [data]=\"data\" title=\"'" . $this->getEntity()->getName("Xx Yy") . "'\"></core-card-dynamic>
 </div>
 ";
 
