@@ -13,6 +13,7 @@ class Gen_ShowTs extends GenerateFileEntity {
   protected function start(){
     $this->string .= "import { Component } from '@angular/core';
 import { ShowComponent } from '@component/show/show.component';
+import { FieldConfig } from '@class/field-config';
 
 @Component({
   selector: 'app-" . $this->entity->getName("xx-yy") . "-show',

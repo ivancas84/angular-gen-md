@@ -20,7 +20,7 @@ class Gen_ShowHtml extends GenerateFileEntity {
 <div *ngIf=\"(load$ | async); else loading\">
   <mat-progress-bar *ngIf=\"!load\" mode=\"indeterminate\"></mat-progress-bar>
   <!-- app-" . $this->getEntity()->getName("xx-yy") . "-search [display]=\"display\"></app-" . $this->getEntity()->getName("xx-yy") . "-search -->
-  <core-table-dynamic [dataSource]=\"data\" [length]=\"length\" [display]=\"display\" [fields]=\"fields\"></core-table-dynamic>
+  <core-table-dynamic [dataSource]=\"data\" [length]=\"length\" [display]=\"display\" [fieldsConfig]=\"fieldsConfig\"></core-table-dynamic>
 </div>
 ";
 

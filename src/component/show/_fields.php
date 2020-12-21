@@ -17,7 +17,7 @@ class GenShowTs_fields extends GenerateEntity {
 
 
   protected function start() {
-    $this->string .= "  fields = [
+    $this->string .= "  fieldsConfig: FieldConfig[] = [
 ";
   }
 
