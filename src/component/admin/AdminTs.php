@@ -11,8 +11,14 @@ class Gen_AdminTs extends GenerateFileEntity {
   }
 
   protected function generateCode() {
+    $this->start();
+    $this->fields();
+    $this->end();
+  }
+  
+  protected function start() {
     $this->string .= "import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
@@ -21,6 +27,7 @@ import { AdminComponent } from '@component/admin/admin.component';
 import { DataDefinitionService } from '@service/data-definition/data-definition.service';
 import { ValidatorsService } from '@service/validators/validators.service';
 import { SessionStorageService } from '@service/storage/session-storage.service';
+import { FieldControl } from '@class/field-control';
 
 @Component({
   selector: 'app-" . $this->entity->getName("xx-yy") . "-admin',
@@ -43,12 +50,21 @@ export class " . $this->entity->getName("XxYy") . "AdminComponent extends AdminC
   ) {
     super(fb, route, router, location, dd, storage, dialog, snackBar);
   }
-}
 
 ";
   }
 
+  protected function fields(){
+    require_once("component/admin/_Fields.php");
+    $gen = new GenAdminTs_fields($this->entity);
+    $this->string .= $gen->generate();
+  }
 
+  protected function end() {
+    $this->string .= "}
+
+";
+  }
 
 
 
