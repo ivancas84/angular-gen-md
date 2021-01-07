@@ -18,7 +18,7 @@ class GenAdminTs_fields extends GenerateEntity {
 
 
   protected function start() {
-    $this->string .= "  fieldsConfig: FieldControl[] = [
+    $this->string .= "  fieldsControl: FieldControl[] = [
 ";
   }
 
@@ -37,6 +37,7 @@ class GenAdminTs_fields extends GenerateEntity {
         case "date": $this->date($field); break;
         case "year": $this->year($field); break;
         case "float": $this->float($field); break;
+        case "select_text": case "select_int": case "select": case "select_param": $this->selectParam($field); break;
         case "timestamp": break;
 
         
@@ -56,6 +57,7 @@ class GenAdminTs_fields extends GenerateEntity {
     foreach($fields as $field){
       switch ( $field->getSubtype() ) {
         case "typeahead": case "autocomplete": $this->autocomplete($field); break;
+        case "select": $this->select($field); break;
       }
     }
   }
@@ -65,14 +67,20 @@ class GenAdminTs_fields extends GenerateEntity {
 ";
   }
 
-  protected function fieldControl($field, $type, $default = null, $validators = [], $asyncValidators = []){
+  protected function fieldControl($field, $type, $default = null, $validators = [], $asyncValidators = [], $entityName = null, $options = null){
     $this->string .= "    new FieldControl({
       field:\"" . $field->getName() . "\",
       label:\"" . $field->getName("Xx Yy") . "\",
 ";
+
+
     if($type !== "default") $this->string .= "      type: \"" . $type . "\",
 ";  
     if(!is_null($default)) $this->string .= "      default: " . $default . ",
+";  
+    if(!is_null($entityName)) $this->string .= "      entityName: \"" . $entityName . "\",
+";  
+    if(!is_null($options)) $this->string .= "      options: ['" . implode("','",$field->getSelectValues()) . "'],
 ";  
     if(!empty($validators)) $this->string .= "      validators: [" . implode(', ', $validators) . "],
 ";    
@@ -202,7 +210,29 @@ class GenAdminTs_fields extends GenerateEntity {
     $asyncValidators = [];
     if($this->asyncValidatorUnique($field)) array_push($asyncValidators, $this->asyncValidatorUnique($field));
 
-    $this->fieldControl($field, "autocomplete", $this->defaultString($field), $validators, $asyncValidators);
+    $this->fieldControl($field, "autocomplete", $this->defaultString($field), $validators, $asyncValidators, $field->getEntityRef()->getName());
+  }
+
+  protected function select(Field $field) {
+    $validators = [];
+    if($this->validatorRequired($field)) array_push($validators, $this->validatorRequired($field));
+
+    $asyncValidators = [];
+    if($this->asyncValidatorUnique($field)) array_push($asyncValidators, $this->asyncValidatorUnique($field));
+
+    $this->fieldControl($field, "select", $this->defaultString($field), $validators, $asyncValidators, $field->getEntityRef()->getName());
+  }
+
+  protected function selectParam(Field $field) {
+    $validators = [];
+    if($this->validatorRequired($field)) array_push($validators, $this->validatorRequired($field));
+
+    $asyncValidators = [];
+    if($this->asyncValidatorUnique($field)) array_push($asyncValidators, $this->asyncValidatorUnique($field));
+
+    $options="\"['" . implode("','",$field->getSelectValues()) . "']\"";
+
+    $this->fieldControl($field, "select_param", $this->defaultString($field), $validators, $asyncValidators, null, $field->getSelectValues());
   }
 
   protected function asyncValidatorUnique(Field $field){

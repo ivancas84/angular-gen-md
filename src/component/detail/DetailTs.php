@@ -19,6 +19,7 @@ class GenDetailTs extends GenerateFileEntity {
   protected function start() {
     $this->string .= "import { Component } from '@angular/core';
 import { DetailComponent } from '@component/detail/detail.component';
+import { FieldConfig } from '@class/field-config';
 
 @Component({
   selector: 'app-" . $this->entity->getName("xx-yy") . "-detail',

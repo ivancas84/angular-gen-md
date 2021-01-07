@@ -17,7 +17,7 @@ class GenDetailTs_fields extends GenerateEntity {
 
 
   protected function start() {
-    $this->string .= "  fields = [
+    $this->string .= "  fieldsConfig: FieldConfig[] = [
 ";
   }
 
@@ -57,85 +57,78 @@ class GenDetailTs_fields extends GenerateEntity {
   }
 
   protected function checkbox(Field $field) {
-    $this->string .= "    {
+    $this->string .= "    new FieldConfig({
       field:\"" . $field->getName() . "\",
       label:\"" . $field->getName("Xx Yy") . "\",
       type:\"si_no\",
-      widthXs:\"25%\",
-      widthMd:\"50%\",
-    },
+    }),
+
 ";
   }
 
   protected function year(Field $field) {
-    $this->string .= "    {
+    $this->string .= "    new FieldConfig({
       field:\"" . $field->getName() . "\",
       label:\"" . $field->getName("Xx Yy") . "\",
       type:\"date\",
       format:\"yyyy\",
-      widthXs:\"25%\",
-      widthMd:\"50%\",
-    },
+    }),
+
 ";
   }
 
   protected function timestamp(Field $field) {
-    $this->string .= "    {
+    $this->string .= "    new FieldConfig({
       field:\"" . $field->getName() . "\",
       label:\"" . $field->getName("Xx Yy") . "\",
       type:\"date\",
       format:\"dd/MM/yyyy HH:mm\",
-      widthXs:\"25%\",
-      widthMd:\"50%\",
-    },
+    }),
+
 ";
   }
 
   protected function date(Field $field) {
-    $this->string .= "    {
+    $this->string .= "    new FieldConfig({
       field:\"" . $field->getName() . "\",
       label:\"" . $field->getName("Xx Yy") . "\",
       type:\"date\",
       format:\"dd/MM/yyyy\",
-      widthXs:\"25%\",
-      widthMd:\"50%\",
-    },
+    }),
+
 ";
   }
 
   protected function time(Field $field) {
-    $this->string .= "    {
+    $this->string .= "    new FieldConfig({
       field:\"" . $field->getName() . "\",
       label:\"" . $field->getName("Xx Yy") . "\",
       type:\"date\",
       format:\"HH:mm\",
-      widthXs:\"25%\",
-      widthMd:\"50%\",
-    },
+    }),
+
 ";
   }
 
   protected function defecto(Field $field) {
-    $this->string .= "    {
+    $this->string .= "    new FieldConfig({
       field:\"" . $field->getName() . "\",
       label:\"" . $field->getName("Xx Yy") . "\",
-      widthXs:\"25%\",
-      widthMd:\"50%\",
-    },
+    }),
+
 ";
   }
 
   protected function label(Field $field) {
-    $this->string .= "    {
+    $this->string .= "    new FieldConfig({
       field:\"" . $field->getName() . "\",
       label:\"" . $field->getName("Xx Yy") . "\",
       type:\"label\",
       entityName: \"" . $field->getEntityRef()->getName() . "\",
       routerLink: \"" . $field->getEntityRef()->getName("xx-yy") . "-detail\",
       queryParamField:\"" . $field->getName() . "\", 
-      widthXs:\"25%\",
-      widthMd:\"50%\",
-    },
+    }),
+
 ";
   }
 
