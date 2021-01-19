@@ -12,7 +12,7 @@ class Gen_AdminTs extends GenerateFileEntity {
 
   protected function generateCode() {
     $this->start();
-    $this->fields();
+    $this->fieldsControl();
     $this->end();
   }
   
@@ -54,9 +54,9 @@ export class " . $this->entity->getName("XxYy") . "AdminComponent extends AdminC
 ";
   }
 
-  protected function fields(){
-    require_once("component/admin/_Fields.php");
-    $gen = new GenAdminTs_fields($this->entity);
+  protected function fieldsControl(){
+    require_once("component/admin/_fieldsControl.php");
+    $gen = new GenAdminTs_fieldsControl($this->entity);
     $this->string .= $gen->generate();
   }
 

@@ -3,7 +3,7 @@
 require_once("GenerateEntity.php");
 
 
-class GenShowTs_fields extends GenerateEntity {
+class GenShowTs_fieldsConfig extends GenerateEntity {
 
 
   public function generate() {
@@ -29,12 +29,13 @@ class GenShowTs_fields extends GenerateEntity {
         case "checkbox": $this->checkbox($field); break;
         case "date": $this->date($field); break;
         case "year": $this->year($field); break;
-        case "timestamp": $this->timestamp($field); break;
-        
+        case "timestamp":
         /**
-         * La administracion de timestamp no se define debido a que no hay un controlador que actualmente lo soporte
-         * Para el caso de que se requiera se deben definir campos adicionales para la fecha y hora independientes
+         * timestamp es un dato particular habitualmente utilizado para campos de control
+         * como por ejemplo altas, bajas, modificaciones
+         * por el momento no se incluye
          */
+        break;
         default: $this->defecto($field); //name, email, date
 
       }
@@ -57,71 +58,71 @@ class GenShowTs_fields extends GenerateEntity {
   }
 
   protected function checkbox(Field $field) {
-    $this->string .= "    {
+    $this->string .= "    new FieldConfig({
       field:\"" . $field->getName() . "\",
       label:\"" . $field->getName("Xx Yy") . "\",
       type:\"si_no\",
-    },
+    }),
 ";
   }
 
   protected function year(Field $field) {
-    $this->string .= "    {
+    $this->string .= "    new FieldConfig({
       field:\"" . $field->getName() . "\",
       label:\"" . $field->getName("Xx Yy") . "\",
       type:\"date\",
       format:\"yyyy\"
-    },
+    }),
 ";
   }
 
   protected function timestamp(Field $field) {
-    $this->string .= "    {
+    $this->string .= "    new FieldConfig({
       field:\"" . $field->getName() . "\",
       label:\"" . $field->getName("Xx Yy") . "\",
       type:\"date\",
       format:\"dd/MM/yyyy HH:mm\"
-    },
+    }),
 ";
   }
 
   protected function date(Field $field) {
-    $this->string .= "    {
+    $this->string .= "    new FieldConfig({
       field:\"" . $field->getName() . "\",
       label:\"" . $field->getName("Xx Yy") . "\",
       type:\"date\",
       format:\"dd/MM/yyyy\"
-    },
+    }),
 ";
   }
 
   protected function time(Field $field) {
-    $this->string .= "    {
+    $this->string .= "    new FieldConfig({
       field:\"" . $field->getName() . "\",
       label:\"" . $field->getName("Xx Yy") . "\",
       type:\"date\",
       format:\"HH:mm\"
-    },
+    }),
 ";
   }
 
   protected function defecto(Field $field) {
-    $this->string .= "    {
+    $this->string .= "    new FieldConfig({
       field:\"" . $field->getName() . "\",
       label:\"" . $field->getName("Xx Yy") . "\",
-    },
+    }),
 ";
   }
 
   protected function label(Field $field) {
-    $this->string .= "    {
+    $this->string .= "    new FieldConfig({
       field:\"" . $field->getName() . "\",
       label:\"" . $field->getName("Xx Yy") . "\",
       type:\"label\",
       entityName: \"" . $field->getEntityRef()->getName() . "\",
       routerLink: \"" . $field->getEntityRef()->getName("xx-yy") . "-detail\",
       queryParamField:\"" . $field->getName() . "\", 
-    },
+    }),
 ";
   }
 

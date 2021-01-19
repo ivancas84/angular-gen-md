@@ -3,7 +3,7 @@
 require_once("GenerateEntity.php");
 require_once("function/settypebool.php");
 
-class GenAdminTs_fields extends GenerateEntity {
+class GenAdminTs_fieldsControl extends GenerateEntity {
 
 
   public function generate() {

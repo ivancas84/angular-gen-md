@@ -25,8 +25,6 @@ foreach($container->getStructure() as $entity) {
       fieldset($entity);
       fieldsetArray($entity);
       show($entity);
-      search($entity);
-      searchParams($entity);
       inputPicker($entity);
 
       /*
@@ -58,10 +56,6 @@ function labelService(array $structure) {
 function show(Entity $entity) {
   require_once("component/show/ShowTs.php");
   $gen = new Gen_ShowTs($entity);
-  $gen->generate();
-
-  require_once("component/show/ShowHtml.php");
-  $gen = new Gen_ShowHtml($entity);
   $gen->generate();
 }
 
@@ -138,15 +132,6 @@ function unorderedList(Entity $entity) {
   $gen = new GenListHtml($entity);
   $gen->generate();
 }
-function search(Entity $entity) {
-  require_once("component/search/SearchTs.php");
-  $gen = new Gen_SearchTs($entity);
-  $gen->generate();
-
-  require_once("component/search/SearchHtml.php");
-  $gen = new Gen_SearchHtml($entity);
-  $gen->generate();
-}
 
 function searchCondition(Entity $entity) {
   require_once("component/searchCondition/SearchConditionTs.php");
@@ -168,15 +153,6 @@ function searchOrder(Entity $entity) {
   $gen->generate();
 }
 
-function searchParams(Entity $entity) {
-  require_once("component/searchParams/SearchParamsTs.php");
-  $gen = new Gen_SearchParamsTs($entity);
-  $gen->generate();
-
-  require_once("component/searchParams/SearchParamsHtml.php");
-  $gen = new Gen_SearchParamsHtml($entity);
-  $gen->generate();
-}
 
 function inputPicker(Entity $entity){
   require_once("component/inputPicker/InputPickerTs.php");

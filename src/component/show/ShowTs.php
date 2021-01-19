@@ -14,10 +14,11 @@ class Gen_ShowTs extends GenerateFileEntity {
     $this->string .= "import { Component } from '@angular/core';
 import { ShowComponent } from '@component/show/show.component';
 import { FieldConfig } from '@class/field-config';
+import { FieldControl } from '@class/field-control';
 
 @Component({
   selector: 'app-" . $this->entity->getName("xx-yy") . "-show',
-  templateUrl: './" . $this->entity->getName("xx-yy") . "-show.component.html',
+  templateUrl: '../../core/component/show/show.component.html',
 })
 export class " . $this->entity->getName("XxYy") . "ShowComponent extends ShowComponent {
 
@@ -27,9 +28,15 @@ export class " . $this->entity->getName("XxYy") . "ShowComponent extends ShowCom
   }
 
   
-  protected function fields(){
-    require_once("component/show/_Fields.php");
-    $gen = new GenShowTs_fields($this->entity);
+  protected function fieldsConfig(){
+    require_once("component/show/_FieldsConfig.php");
+    $gen = new GenShowTs_fieldsConfig($this->entity);
+    $this->string .= $gen->generate();
+  }
+
+  protected function fieldsControlSp(){
+    require_once("component/show/_FieldsControlSp.php");
+    $gen = new GenShowTs_fieldsControlSp($this->entity);
     $this->string .= $gen->generate();
   }
 
@@ -41,7 +48,8 @@ export class " . $this->entity->getName("XxYy") . "ShowComponent extends ShowCom
 
   protected function generateCode() { //@override
     $this->start();
-    $this->fields();
+    $this->fieldsConfig();
+    $this->fieldsControlSp();
     $this->end();
   }
 
