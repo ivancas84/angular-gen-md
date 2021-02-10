@@ -63,10 +63,6 @@ function admin(Entity $entity) {
   require_once("component/admin/AdminTs.php");
   $gen = new Gen_AdminTs($entity);
   $gen->generate();
-
-  require_once("component/admin/AdminHtml.php");
-  $gen = new Gen_AdminHtml($entity);
-  $gen->generate();
 }
 
 function detail(Entity $entity) {

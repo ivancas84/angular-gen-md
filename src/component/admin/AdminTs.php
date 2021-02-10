@@ -31,11 +31,12 @@ import { FieldControl } from '@class/field-control';
 
 @Component({
   selector: 'app-" . $this->entity->getName("xx-yy") . "-admin',
-  templateUrl: './" . $this->entity->getName("xx-yy") . "-admin.component.html',
+  templateUrl: '../../core/component/admin/admin.component.html',
 })
 export class " . $this->entity->getName("XxYy") . "AdminComponent extends AdminComponent {
 
-  readonly entityName: string = \"" . $this->entity->getName() . "\";
+  readonly entityName: string = \"" . $this->entity->getName() . "\"
+  title: string = \"" . $this->entity->getName('Xx Yy') . "\"
 
   constructor(
     protected fb: FormBuilder, 
