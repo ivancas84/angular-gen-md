@@ -12,7 +12,7 @@ class Gen_AdminTs extends GenerateFileEntity {
 
   protected function generateCode() {
     $this->start();
-    $this->fieldsControl();
+    $this->fieldsViewOptions();
     $this->end();
   }
   
@@ -27,7 +27,8 @@ import { AdminComponent } from '@component/admin/admin.component';
 import { DataDefinitionService } from '@service/data-definition/data-definition.service';
 import { ValidatorsService } from '@service/validators/validators.service';
 import { SessionStorageService } from '@service/storage/session-storage.service';
-import { FieldControl } from '@class/field-control';
+import { FieldViewOptions } from '@class/field-view-options';
+import { FieldInputCheckboxOptions, FieldInputSelectParamOptions, FieldInputTextOptions, FieldInputAutocompleteOptions, FieldControlOptions, FieldHiddenOptions, FieldInputDateOptions, FieldInputYearOptions, FieldInputSelectOptions } from '@class/field-type-options';
 
 @Component({
   selector: 'app-" . $this->entity->getName("xx-yy") . "-admin',
@@ -38,26 +39,12 @@ export class " . $this->entity->getName("XxYy") . "AdminComponent extends AdminC
   readonly entityName: string = \"" . $this->entity->getName() . "\"
   title: string = \"" . $this->entity->getName('Xx Yy') . "\"
 
-  constructor(
-    protected fb: FormBuilder, 
-    protected route: ActivatedRoute, 
-    protected router: Router, 
-    protected location: Location, 
-    protected dd: DataDefinitionService, 
-    protected validators: ValidatorsService,
-    protected storage: SessionStorageService, 
-    protected dialog: MatDialog,
-    protected snackBar: MatSnackBar
-  ) {
-    super(fb, route, router, location, dd, storage, dialog, snackBar);
-  }
-
 ";
   }
 
-  protected function fieldsControl(){
-    require_once("component/admin/_fieldsControl.php");
-    $gen = new GenAdminTs_fieldsControl($this->entity);
+  protected function fieldsViewOptions(){
+    require_once("component/admin/_fieldsViewOptions.php");
+    $gen = new GenAdminTs_fieldsViewOptions($this->entity);
     $this->string .= $gen->generate();
   }
 
