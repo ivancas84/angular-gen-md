@@ -13,8 +13,10 @@ class Gen_ShowTs extends GenerateFileEntity {
   protected function start(){
     $this->string .= "import { Component } from '@angular/core';
 import { ShowComponent } from '@component/show/show.component';
-import { FieldConfig } from '@class/field-config';
-import { FieldControl } from '@class/field-control';
+import { FieldViewOptions } from '@class/field-view-options';
+import { FieldYesNoOptions, TypeLabelOptions, FieldInputCheckboxOptions, FieldInputSelectParamOptions, FieldInputAutocompleteOptions, FieldInputSelectOptions, FieldInputTextOptions, FieldDateOptions, FieldInputDateOptions } from '@class/field-type-options';
+import { RouterLinkOptions } from '@class/field-view-aux-options';
+import { FieldWidthOptions } from '@class/field-width-options';
 
 @Component({
   selector: 'app-" . $this->entity->getName("xx-yy") . "-show',
@@ -28,15 +30,15 @@ export class " . $this->entity->getName("XxYy") . "ShowComponent extends ShowCom
   }
 
   
-  protected function fieldsConfig(){
-    require_once("component/show/_FieldsConfig.php");
-    $gen = new GenShowTs_fieldsConfig($this->entity);
+  protected function fieldsViewOptions(){
+    require_once("component/show/_fieldsViewOptions.php");
+    $gen = new GenShowTs_fieldsViewOptions($this->entity);
     $this->string .= $gen->generate();
   }
 
-  protected function fieldsControlSp(){
-    require_once("component/show/_FieldsControlSp.php");
-    $gen = new GenShowTs_fieldsControlSp($this->entity);
+  protected function fieldsViewOptionsSp(){
+    require_once("component/show/_fieldsViewOptionsSp.php");
+    $gen = new GenShowTs_fieldsViewOptionsSp($this->entity);
     $this->string .= $gen->generate();
   }
 
@@ -48,8 +50,8 @@ export class " . $this->entity->getName("XxYy") . "ShowComponent extends ShowCom
 
   protected function generateCode() { //@override
     $this->start();
-    $this->fieldsConfig();
-    $this->fieldsControlSp();
+    $this->fieldsViewOptions();
+    $this->fieldsViewOptionsSp();
     $this->end();
   }
 

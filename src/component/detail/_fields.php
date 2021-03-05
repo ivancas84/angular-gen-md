@@ -17,7 +17,7 @@ class GenDetailTs_fields extends GenerateEntity {
 
 
   protected function start() {
-    $this->string .= "  fieldsConfig: FieldConfig[] = [
+    $this->string .= "  fieldsViewOptions: FieldViewOptions[] = [
 ";
   }
 
@@ -57,7 +57,7 @@ class GenDetailTs_fields extends GenerateEntity {
   }
 
   protected function checkbox(Field $field) {
-    $this->string .= "    new FieldConfig({
+    $this->string .= "    new FieldViewOptions({
       field:\"" . $field->getName() . "\",
       label:\"" . $field->getName("Xx Yy") . "\",
       type:\"si_no\",
@@ -67,7 +67,7 @@ class GenDetailTs_fields extends GenerateEntity {
   }
 
   protected function year(Field $field) {
-    $this->string .= "    new FieldConfig({
+    $this->string .= "    new FieldViewOptions({
       field:\"" . $field->getName() . "\",
       label:\"" . $field->getName("Xx Yy") . "\",
       type:\"date\",
@@ -78,7 +78,7 @@ class GenDetailTs_fields extends GenerateEntity {
   }
 
   protected function timestamp(Field $field) {
-    $this->string .= "    new FieldConfig({
+    $this->string .= "    new FieldViewOptions({
       field:\"" . $field->getName() . "\",
       label:\"" . $field->getName("Xx Yy") . "\",
       type:\"date\",
@@ -89,7 +89,7 @@ class GenDetailTs_fields extends GenerateEntity {
   }
 
   protected function date(Field $field) {
-    $this->string .= "    new FieldConfig({
+    $this->string .= "    new FieldViewOptions({
       field:\"" . $field->getName() . "\",
       label:\"" . $field->getName("Xx Yy") . "\",
       type:\"date\",
@@ -100,7 +100,7 @@ class GenDetailTs_fields extends GenerateEntity {
   }
 
   protected function time(Field $field) {
-    $this->string .= "    new FieldConfig({
+    $this->string .= "    new FieldViewOptions({
       field:\"" . $field->getName() . "\",
       label:\"" . $field->getName("Xx Yy") . "\",
       type:\"date\",
@@ -111,7 +111,7 @@ class GenDetailTs_fields extends GenerateEntity {
   }
 
   protected function defecto(Field $field) {
-    $this->string .= "    new FieldConfig({
+    $this->string .= "    new FieldViewOptions({
       field:\"" . $field->getName() . "\",
       label:\"" . $field->getName("Xx Yy") . "\",
     }),
@@ -120,7 +120,7 @@ class GenDetailTs_fields extends GenerateEntity {
   }
 
   protected function label(Field $field) {
-    $this->string .= "    new FieldConfig({
+    $this->string .= "    new FieldViewOptions({
       field:\"" . $field->getName() . "\",
       label:\"" . $field->getName("Xx Yy") . "\",
       type:\"label\",
