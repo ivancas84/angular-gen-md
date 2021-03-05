@@ -22,7 +22,6 @@ foreach($container->getStructure() as $entity) {
       //components
       admin($entity);
       detail($entity);
-      fieldset($entity);
       fieldsetArray($entity);
       show($entity);
       inputPicker($entity);
@@ -83,17 +82,6 @@ function label(Entity $entity) {
 
   require_once("component/label/LabelHtml.php");
   $gen = new GenLabelHtml($entity);
-  $gen->generate();
-}
-
-
-function fieldset(Entity $entity) {
-  require_once("component/fieldset/FieldsetTs.php");
-  $gen = new FieldsetTs($entity);
-  $gen->generate();
-
-  require_once("component/fieldset/FieldsetHtml.php");
-  $gen = new FieldsetHtml($entity);
   $gen->generate();
 }
 
