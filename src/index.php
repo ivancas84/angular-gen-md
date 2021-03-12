@@ -14,6 +14,8 @@ require_once("class/Container.php");
 $container = new Container();
 storageService($container->getStructure());
 labelService($container->getStructure());
+relArrayService($container->getStructure());
+
 
 foreach($container->getStructure() as $entity) {
   
@@ -22,9 +24,9 @@ foreach($container->getStructure() as $entity) {
       //components
       admin($entity);
       detail($entity);
-      fieldsetArray($entity);
       show($entity);
       inputPicker($entity);
+
 
       /*
       searchCondition($entity);
@@ -50,6 +52,17 @@ function labelService(array $structure) {
   require_once("service/data-definition-label/DataDefinitionLabel.php");
   $gen = new GenDataDefinitionLabel($structure);
   $gen->generateIfNotExists();
+}
+
+
+function relArrayService(array $structure) {
+  require_once("service/data-definition-rel-array/_DataDefinitionRelArray.php");
+  $gen = new _GenDataDefinitionRelArray($structure);
+  $gen->generate();
+
+  require_once("service/data-definition-rel-array/DataDefinitionRelArray.php");
+  $gen = new GenDataDefinitionRelArray($structure);
+  $gen->generate();
 }
 
 function show(Entity $entity) {
@@ -86,15 +99,6 @@ function label(Entity $entity) {
 }
 
 
-function fieldsetArray(Entity $entity) {
-  require_once("component/fieldsetArray/FieldsetArrayTs.php");
-  $gen = new FieldsetArrayTs($entity);
-  $gen->generate();
-
-  require_once("component/fieldsetArray/FieldsetArrayHtml.php");
-  $gen = new FieldsetArrayHtml($entity);
-  $gen->generate();
-}
 
 
 function grid(Entity $entity) {

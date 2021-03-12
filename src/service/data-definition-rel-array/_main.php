@@ -2,7 +2,7 @@
 
 require_once("Generate.php");
 
-class _GenDataDefinitionRelArray_main extends Generate {
+class GenDataDefinitionRelArray_main extends Generate {
 
   protected $structure; //estructura de tablas
 
@@ -19,14 +19,14 @@ class _GenDataDefinitionRelArray_main extends Generate {
 
 
   protected function start(){
-    $this->string .= "  main(entityName: string, id: string): Observable<string> {
+    $this->string .= "  main(entityName: string, display:Display): Observable<string> {
     switch(entityName) {
 ";
   }
 
   protected function body(){
     foreach($this->structure as $entity){
-      $this->string .= "      case \"" . $entity->getName() . "\": { return this." . $entity->getName("xxYy") . "(display:Display); }
+      $this->string .= "      case \"" . $entity->getName() . "\": { return this." . $entity->getName("xxYy") . "(display); }
 ";
       }
   }
