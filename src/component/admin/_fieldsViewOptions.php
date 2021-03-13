@@ -218,7 +218,7 @@ class GenAdminTs_fieldsViewOptions extends GenerateEntity {
   }
 
   protected function integer(Field $field) {
-    $default = $this->defaultNumber();
+    $default = $this->defaultNumber($field);
 
     $validators = [];
     if($this->validatorRequired($field)) array_push($validators, $this->validatorRequired($field));
@@ -239,7 +239,7 @@ class GenAdminTs_fieldsViewOptions extends GenerateEntity {
   }
 
   protected function float(Field $field) {
-    $default = $this->defaultNumber();
+    $default = $this->defaultNumber($field);
     
     $validators = [];
     if($this->validatorRequired($field)) array_push($validators, $this->validatorRequired($field));
