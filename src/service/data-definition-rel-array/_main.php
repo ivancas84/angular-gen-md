@@ -19,14 +19,14 @@ class GenDataDefinitionRelArray_main extends Generate {
 
 
   protected function start(){
-    $this->string .= "  main(entityName: string, display:Display): Observable<string> {
+    $this->string .= "  main(entityName: string, ids:string[]): Observable<string> {
     switch(entityName) {
 ";
   }
 
   protected function body(){
     foreach($this->structure as $entity){
-      $this->string .= "      case \"" . $entity->getName() . "\": { return this." . $entity->getName("xxYy") . "(display); }
+      $this->string .= "      case \"" . $entity->getName() . "\": { return this." . $entity->getName("xxYy") . "(ids); }
 ";
       }
   }

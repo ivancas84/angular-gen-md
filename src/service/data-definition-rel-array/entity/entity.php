@@ -19,8 +19,8 @@ class GenDataDefinitionRelArray_entity extends GenerateEntity {
 
 
   protected function start(){
-    $this->string .= "  " . $this->entity->getName("xxYy"). "(display: Display): Observable<any> {
-    return this.dd.all(\"" . $this->entity->getName(). "\", display)";
+    $this->string .= "  " . $this->entity->getName("xxYy"). "(ids: string[]): Observable<any> {
+    return this.dd.getAll(\"" . $this->entity->getName(). "\", ids)";
   }
 
   public function pipeStart(){
