@@ -39,7 +39,7 @@ class GenShowTs_fieldsViewOptionsSp extends GenerateEntity {
           $this->string .= "    new FieldViewOptions({
       field:\"" . $field->getName() . "\",
       label:\"" . $field->getName("Xx Yy") . "\",
-      type: new FieldInputCheckboxOptions(),
+      type: new FieldInputSelectCheckboxOptions(),
     }),
 ";
         break;
