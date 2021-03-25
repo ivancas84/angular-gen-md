@@ -14,17 +14,21 @@ class _GenDataDefinitionRelArray extends GenerateFile {
   protected function generateCode(){
     $this->importsStart();
     $this->classStart();
-    $this->main();
-    $this->entity();
+    $this->filterFields();
+    $this->get();
+    $this->getAll();
+    $this->entityGetAll();
+    $this->entityGet();
     $this->classEnd();
   }
 
   protected function importsStart(){
     $this->string .= "import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
-import { Display } from '@class/display';
+import { Observable, of } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { DataDefinitionToolService } from '@service/data-definition/data-definition-tool.service';
+import { isEmptyObject } from '@function/is-empty-object.function';
+
 ";
   }
 
@@ -33,15 +37,18 @@ import { DataDefinitionToolService } from '@service/data-definition/data-definit
 @Injectable({
   providedIn: 'root'
 })
-export class _DataDefinitionRelArrayService {
+export class _DataDefinitionRelArrayService { //2
   /**
-   * Define un array de relaciones, 
-   * utilizando metodos que consultan el storage,
-   * para reducir las consultas al servidor.
-   * La estructura resultante, puede ser utilizada directamente 
-   * en una tabla de visualizacion, facilitando el ordenamiento,
-   * ya que cada campo se identifica con el prefijo correspondiente
-   * de la entidad relacionada
+   * Define un array de relaciones, utilizando metodos que consultan el storage,
+   * 
+   * La estructura resultante, puede ser utilizada directamente en una tabla de visualizacion.
+   * 
+   * Gracias al storage y la identificacion de fields, 
+   * reduce los accesos al servidor y facilita el ordenamiento
+   * 
+   * La identificacion de fields es distinta de la que hace el servidor.
+   * En el servidor habitualmente se utiliza '-' para las consultas 
+   * y '_' representar el resultado, 
    */
 
   constructor(protected dd: DataDefinitionToolService){ }
@@ -49,16 +56,44 @@ export class _DataDefinitionRelArrayService {
 ";
   }
 
-  protected function main(){
-    require_once("service/data-definition-rel-array/_main.php");
-    $gen = new GenDataDefinitionRelArray_main($this->structure);
+  protected function filterFields(){
+    $this->string .= "    filterFields(fields, prefix) {
+      var f = {}
+      for(var key in fields){
+        if(fields.hasOwnProperty(key)){
+          if(key.includes(prefix)) f[key] = fields[key];
+        }
+      }
+      return f;
+    }
+
+";          
+
+  }
+  protected function get(){
+    require_once("service/data-definition-rel-array/_get.php");
+    $gen = new GenDataDefinitionRelArray_get($this->structure);
     $this->string .= $gen->generate();
   }
 
-  protected function entity(){
-    require_once("service/data-definition-rel-array/entity/entity.php");
+  protected function getAll(){
+    require_once("service/data-definition-rel-array/_getAll.php");
+    $gen = new GenDataDefinitionRelArray_getAll($this->structure);
+    $this->string .= $gen->generate();
+  }
+
+  protected function entityGetAll(){
+    require_once("service/data-definition-rel-array/getAll/entity.php");
     foreach($this->structure as $entity){
-      $gen = new GenDataDefinitionRelArray_entity($entity);
+      $gen = new GenDataDefinitionRelArray_entityGetAll($entity);
+      $this->string .= $gen->generate();
+    }
+  }
+
+  protected function entityGet(){
+    require_once("service/data-definition-rel-array/get/entity.php");
+    foreach($this->structure as $entity){
+      $gen = new GenDataDefinitionRelArray_entityGet($entity);
       $this->string .= $gen->generate();
     }
   }

@@ -3,7 +3,7 @@
 require_once("GenerateEntity.php");
 
 
-class GenDataDefinitionRelArray_entity extends GenerateEntity {
+class GenDataDefinitionRelArray_entityGet extends GenerateEntity {
 
   protected function hasRelations(){ return ($this->getEntity()->hasRelations()) ? true : false; }
 
@@ -19,8 +19,8 @@ class GenDataDefinitionRelArray_entity extends GenerateEntity {
 
 
   protected function start(){
-    $this->string .= "  " . $this->entity->getName("xxYy"). "(ids: string[]): Observable<any> {
-    return this.dd.getAll(\"" . $this->entity->getName(). "\", ids)";
+    $this->string .= "  " . $this->entity->getName("xxYy"). "Get(id: string, fields: { [index: string]: any }): Observable<any> {
+    return this.dd.get(\"" . $this->entity->getName(). "\", id)";
   }
 
   public function pipeStart(){
@@ -29,8 +29,8 @@ class GenDataDefinitionRelArray_entity extends GenerateEntity {
   }
 
   protected function entityElement(){    
-    require_once("service/data-definition-rel-array/entity/entityElement.php");
-    $g = new GenDataDefinitionRelArray_entityElement($this->entity);
+    require_once("service/data-definition-rel-array/get/entityElement.php");
+    $g = new GenDataDefinitionRelArray_entityElementGet($this->entity);
     $this->string .= $g->generate();
   }
 
