@@ -32,7 +32,7 @@ import { FieldInputCheckboxOptions, FieldInputSelectParamOptions, FieldInputText
 
 @Component({
   selector: 'app-" . $this->entity->getName("xx-yy") . "-admin',
-  templateUrl: '../../core/component/admin/admin.component.html',
+  templateUrl: '../../core/component/admin/admin-dynamic.component.html',
 })
 export class " . $this->entity->getName("XxYy") . "AdminComponent extends AdminComponent {
 
