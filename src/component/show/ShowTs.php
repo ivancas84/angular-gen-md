@@ -14,7 +14,7 @@ class Gen_ShowTs extends GenerateFileEntity {
     $this->string .= "import { Component } from '@angular/core';
 import { ShowDynamicComponent } from '@component/show/show-dynamic.component';
 import { FieldViewOptions } from '@class/field-view-options';
-import { FieldYesNoOptions, TypeLabelOptions, FieldInputCheckboxOptions, FieldInputSelectParamOptions, FieldInputAutocompleteOptions, FieldInputSelectOptions, FieldInputTextOptions, FieldDateOptions, FieldInputDateOptions } from '@class/field-type-options';
+import { FieldYesNoOptions, TypeLabelOptions, FieldInputSelectCheckboxOptions, FieldInputCheckboxOptions, FieldInputSelectParamOptions, FieldInputAutocompleteOptions, FieldInputSelectOptions, FieldInputTextOptions, FieldDateOptions, FieldInputDateOptions } from '@class/field-type-options';
 import { RouterLinkOptions } from '@class/field-view-aux-options';
 import { FieldWidthOptions } from '@class/field-width-options';
 
