@@ -74,7 +74,7 @@ class GenAdminTs_fieldsViewOptions extends GenerateEntity {
 
   protected function defaultDateTime($field){
     if(is_null($field->getDefault())) return null;
-    return (strpos(strtolower($field->getDefault()), "current") !== false) ? 
+    return (strpos(strtolower($field->getDefault()), "cur") !== false) ? 
       "new Date()" : "new Date('" . $field->getDefault() . "')";
   }
 
@@ -262,7 +262,7 @@ class GenAdminTs_fieldsViewOptions extends GenerateEntity {
     $v = str_pad("", $m, "9", STR_PAD_LEFT);
     if($d) $v .= ".".str_pad("", $d, "9", STR_PAD_RIGHT);
     ($field->getMax()) ? array_push($validators, "Validators.max(" . $field->getMax() . ")") :  array_push($validators, "Validators.max(" . $v . ")");
-    ($field->getMin()) ? array_push($validators, "Validators.min(" . $field->getMin() . ")") :  array_push($validators, "Validators.max(-" . $v . ")");
+    ($field->getMin()) ? array_push($validators, "Validators.min(" . $field->getMin() . ")") :  array_push($validators, "Validators.min(-" . $v . ")");
 
     $this->string .= "    new FieldViewOptions({
       field:\"" . $field->getName() . "\",
