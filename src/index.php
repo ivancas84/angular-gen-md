@@ -12,7 +12,6 @@ require_once("class/Container.php");
 
 
 $container = new Container();
-storageService($container->getStructure());
 labelService($container->getStructure());
 
 
@@ -36,12 +35,6 @@ foreach($container->getStructure() as $entity) {
       */
 }
 
-
-function storageService(array $structure) {
-  require_once("service/data-definition-storage/DataDefinitionStorage.php");
-  $gen = new GenDataDefinitionStorage($structure);
-  $gen->generate();
-}
 
 function labelService(array $structure) {
   require_once("service/data-definition-label/_DataDefinitionLabel.php");
