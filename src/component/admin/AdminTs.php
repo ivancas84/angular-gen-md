@@ -29,6 +29,7 @@ import { ValidatorsService } from '@service/validators/validators.service';
 import { SessionStorageService } from '@service/storage/session-storage.service';
 import { FieldViewOptions } from '@class/field-view-options';
 import { FieldInputCheckboxOptions, FieldInputSelectParamOptions, FieldInputTextOptions, FieldInputAutocompleteOptions, FieldControlOptions, FieldHiddenOptions, FieldInputDateOptions, FieldInputYearOptions, FieldInputSelectOptions } from '@class/field-type-options';
+import { ValidatorOpt } from '@class/validator-opt';
 
 @Component({
   selector: 'app-" . $this->entity->getName("xx-yy") . "-admin',
