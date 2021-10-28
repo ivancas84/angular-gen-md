@@ -1,15 +1,18 @@
 <?php
 
+require_once("class/Container.php");
 require_once("GenerateFileEntity.php");
 
 class GenInputPickerTs extends GenerateFileEntity {
 
   protected $options = []; //opciones
+  public $container;
 
   public function __construct(Entity $entity) {
     $file = $entity->getName("xx-yy") . "-input-picker.component.ts";
     $dir = $_SERVER["DOCUMENT_ROOT"]."/".PATH_GEN."/" . "tmp/component/input-picker/" . $entity->getName("xx-yy") . "-form-pick/";
     parent::__construct($dir, $file, $entity);
+    $this->container = new Container();
   }
 
   protected function generateCode(){
@@ -51,7 +54,7 @@ export class " . $this->entity->getName("XxYy") . "InputPickerComponent extends 
 
   protected function getters(){
     foreach($this->entity->uniqueMultiple as $fieldName){
-      $field = $this->container->getField($this->getName(), $fieldName);
+      $field = $this->container->getField($this->entity->getName(), $fieldName);
       $this->string .= "  get {$field->getName('xxYy')}() { return this.form.get('{$field->getName()}')}
 ";
     }
