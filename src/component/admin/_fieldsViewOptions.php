@@ -88,11 +88,13 @@ class GenAdminTs_fieldsViewOptions extends GenerateEntity {
     return (is_null($field->getDefault())) ? null : "\"{$field->getDefault()}\"";      
   }
 
-  protected function fieldControlOptions($validators, $asyncValidators){
+  protected function fieldControlOptions($validators, $asyncValidators, $default = false){
     if(!empty($validators)||!empty($asyncValidators)){
       $this->string .= "      control: new FieldControlOptions({";
-      if(!empty($validators)) $this->string .= "validators: [" . implode(', ', $validators) . "],";    
-      if(!empty($asyncValidators)) $this->string .= "asyncValidators: [" . implode(', ', $asyncValidators) . "],";  
+      if($default) $this->string .= "      default:" . $default . ",
+";
+      if(!empty($validators)) $this->string .= "validatorOpts: [" . implode(', ', $validators) . "],";    
+      if(!empty($asyncValidators)) $this->string .= "asyncValidatorOpts: [" . implode(', ', $asyncValidators) . "],";  
       $this->string .= "})
 ";
     }
@@ -124,9 +126,7 @@ class GenAdminTs_fieldsViewOptions extends GenerateEntity {
       label:\"" . $field->getName("Xx Yy") . "\",
       type: new FieldInputTextOptions(),
 ";
-    if($default) $this->string .= "      default:" . $default . ",
-";
-    $this->fieldControlOptions($validators,$asyncValidators);
+    $this->fieldControlOptions($validators,$asyncValidators,$default);
     $this->string .= "    }),
 ";
   }
@@ -134,7 +134,9 @@ class GenAdminTs_fieldsViewOptions extends GenerateEntity {
   protected function email(Field $field) {
     $default = (is_null($field->getDefault())) ? null : "\"{$field->getDefault()}\"";
 
-    $validators = ["Validators.pattern(\"[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}\")"];
+    $validators = [
+      'new ValidatorOpt({id:"pattern", message:"Formato incorrecto", fn:Validators.pattern(\"[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}\")})',
+    ];
     if($this->validatorRequired($field)) array_push($validators, $this->validatorRequired($field));
 
     $asyncValidators = [];
@@ -145,9 +147,7 @@ class GenAdminTs_fieldsViewOptions extends GenerateEntity {
       label:\"" . $field->getName("Xx Yy") . "\",
       type: new FieldInputTextOptions(),
 ";
-    if($default) $this->string .= "      default:" . $default . ",
-";
-    $this->fieldControlOptions($validators,$asyncValidators);
+    $this->fieldControlOptions($validators,$asyncValidators, $default);
     $this->string .= "    }),
 ";
   }
@@ -155,7 +155,12 @@ class GenAdminTs_fieldsViewOptions extends GenerateEntity {
   protected function dni(Field $field) {
     $default = (is_null($field->getDefault())) ? null : "\"{$field->getDefault()}\"";
 
-    $validators = array("Validators.minLength(7)", "Validators.maxLength(9)", "Validators.pattern('^[0-9]*$')");
+    $validators = array(
+      'new ValidatorOpt({id:"minlength", message:"Valor inferior al mínimo", fn:Validators.minLength(7)})',
+      'new ValidatorOpt({id:"maxlength", message:"Valor superior al máximo", fn:Validators.maxLength(9)})',
+      'new ValidatorOpt({id:"pattern", message:"Ingrese sólo números", fn:Validators.pattern("^[0-9]*$")})',
+    );
+
     if($this->validatorRequired($field)) array_push($validators, $this->validatorRequired($field));
 
     $asyncValidators = [];
@@ -166,17 +171,17 @@ class GenAdminTs_fieldsViewOptions extends GenerateEntity {
       label:\"" . $field->getName("Xx Yy") . "\",
       type: new FieldInputTextOptions(),
 ";
-    if($default) $this->string .= "      default:" . $default . ",
-";
-    $this->fieldControlOptions($validators,$asyncValidators);
+    $this->fieldControlOptions($validators, $asyncValidators, $default);
     $this->string .= "    }),
 ";
   }
 
   protected function year(Field $field) {
-    $validators = array("this.validators.year()");
-    if($field->getMax()) array_push($validators, "this.validators.maxYear('" . $field->getLength() . "')");
-    if($field->getMin()) array_push($validators, "this.validators.minYear('" . $field->getMinLength() . "')");
+    $validators = array(
+      'new ValidatorOpt({id:"year", message:"Formato incorrecto", fn:this.validators.year()})',
+    );
+    if($field->getMax()) array_push($validators, 'new ValidatorOpt({id:"maxyear", message:"Valor superior al máximo", fn:this.validators.maxYear("' . $field->getLength() . '")})');
+    if($field->getMin()) array_push($validators, 'new ValidatorOpt({id:"minyear", message:"Valor inferior al mínimo", fn:this.validators.minYear("' . $field->getMinLength() . '")})');
     if($this->validatorRequired($field)) array_push($validators, $this->validatorRequired($field));
 
     $asyncValidators = [];
@@ -189,9 +194,7 @@ class GenAdminTs_fieldsViewOptions extends GenerateEntity {
       label:\"" . $field->getName("Xx Yy") . "\",
       type: new FieldInputYearOptions(),
 ";
-    if($default) $this->string .= "      default:" . $default . ",
-";
-    $this->fieldControlOptions($validators,$asyncValidators);
+    $this->fieldControlOptions($validators, $asyncValidators, $default);
     $this->string .= "    }),
 ";
   }
@@ -210,9 +213,7 @@ class GenAdminTs_fieldsViewOptions extends GenerateEntity {
       label:\"" . $field->getName("Xx Yy") . "\",
       type: new FieldInputDateOptions(),
 ";
-    if($default) $this->string .= "      default:" . $default . ",
-";
-    $this->fieldControlOptions($validators,$asyncValidators);
+    $this->fieldControlOptions($validators,$asyncValidators, $default);
     $this->string .= "    }),
 ";
   }
@@ -231,9 +232,7 @@ class GenAdminTs_fieldsViewOptions extends GenerateEntity {
       label:\"" . $field->getName("Xx Yy") . "\",
       type: new FieldInputTextOptions(),
 ";
-    if($default) $this->string .= "      default:" . $default . ",
-";
-    $this->fieldControlOptions($validators,$asyncValidators);
+    $this->fieldControlOptions($validators,$asyncValidators, $default);
     $this->string .= "    }),
 ";
   }
@@ -269,9 +268,7 @@ class GenAdminTs_fieldsViewOptions extends GenerateEntity {
       label:\"" . $field->getName("Xx Yy") . "\",
       type: new FieldInputTextOptions(),
 ";
-    if($default) $this->string .= "      default:" . $default . ",
-";
-    $this->fieldControlOptions($validators,$asyncValidators);
+    $this->fieldControlOptions($validators,$asyncValidators, $default);
     $this->string .= "    }),
 ";
   }
@@ -290,9 +287,7 @@ class GenAdminTs_fieldsViewOptions extends GenerateEntity {
       label:\"" . $field->getName("Xx Yy") . "\",
       type: new FieldInputAutocompleteOptions({entityName:\"" . $field->getEntityRef()->getName() . "\"}),
 ";
-    if($default) $this->string .= "      default:" . $default . ",
-";
-    $this->fieldControlOptions($validators,$asyncValidators);
+    $this->fieldControlOptions($validators,$asyncValidators,$default);
     $this->string .= "    }),
 ";
   }
@@ -311,9 +306,7 @@ class GenAdminTs_fieldsViewOptions extends GenerateEntity {
       label:\"" . $field->getName("Xx Yy") . "\",
       type: new FieldInputSelectOptions({entityName:'" . $field->getEntityRef()->getName() . "'}),
 ";
-    if($default) $this->string .= "      default:" . $default . ",
-";
-    $this->fieldControlOptions($validators,$asyncValidators);
+    $this->fieldControlOptions($validators,$asyncValidators, $default);
     $this->string .= "    }),
 ";
   }
@@ -339,20 +332,19 @@ class GenAdminTs_fieldsViewOptions extends GenerateEntity {
       label:\"" . $field->getName("Xx Yy") . "\",
       type: new FieldInputSelectParamOptions({options:" . $options . "}),
 ";
-    if($default) $this->string .= "      default:" . $default . ",
-";
-    $this->fieldControlOptions($validators,$asyncValidators);
+    $this->fieldControlOptions($validators,$asyncValidators, $default);
     $this->string .= "    }),
 ";
   }
 
   protected function asyncValidatorUnique(Field $field){
-    if($field->isUnique()) return "this.validators.unique('{$field->getName()}', '{$field->getEntity()->getName()}')";
-
+    if($field->isUnique()) return "
+    new UniqueValidatorOpt({message:'Valor utilizado', fn:this.validators.unique('{$field->getName()}', '{$field->getEntity()->getName()}'), route:'{$field->getEntity()->getName()}-admin'})
+";
     /*if($field->isUniqueMultiple()) {
       $fieldsUniqueNames = [];
-      foreach($field->getEntity()->getFieldsUniqueMultiple() as $fieldUnique) {
-        array_push($fieldsUniqueNames, $fieldUnique->getName());
+      foreach($field->getEntity()->uniqueMultiple as $fieldUniqueName) {
+        array_push($fieldsUniqueNames, $fieldUniqueName);
       }
 
       $f = "'" . implode("', '", $fieldsUniqueNames) . "'";
@@ -364,7 +356,7 @@ class GenAdminTs_fieldsViewOptions extends GenerateEntity {
   }
 
   protected function validatorRequired(Field $field){
-    return ($field->isNotNull()) ? "Validators.required" : false;
+    return ($field->isNotNull()) ? 'new ValidatorOpt({id:"required", message:"Debe completar valor", fn:Validators.required})' : false;
   }
  
 

@@ -12,7 +12,7 @@ class Gen_ShowTs extends GenerateFileEntity {
 
   protected function start(){
     $this->string .= "import { Component } from '@angular/core';
-import { ShowDynamicComponent } from '@component/show/show-dynamic.component';
+import { ShowRelDynamicComponent } from '@component/show/show-rel-dynamic.component';
 import { FieldViewOptions } from '@class/field-view-options';
 import { FieldYesNoOptions, TypeLabelOptions, FieldInputSelectCheckboxOptions, FieldInputCheckboxOptions, FieldInputSelectParamOptions, FieldInputAutocompleteOptions, FieldInputSelectOptions, FieldInputTextOptions, FieldDateOptions, FieldInputDateOptions } from '@class/field-type-options';
 import { RouterLinkOptions } from '@class/field-view-aux-options';
@@ -22,7 +22,7 @@ import { FieldWidthOptions } from '@class/field-width-options';
   selector: 'app-" . $this->entity->getName("xx-yy") . "-show',
   templateUrl: '../../core/component/show/show-dynamic.component.html',
 })
-export class " . $this->entity->getName("XxYy") . "ShowComponent extends ShowDynamicComponent {
+export class " . $this->entity->getName("XxYy") . "ShowComponent extends ShowRelDynamicComponent {
 
   readonly entityName: string = \"" . $this->entity->getName() . "\";
 

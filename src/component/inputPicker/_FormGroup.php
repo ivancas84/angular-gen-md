@@ -96,8 +96,8 @@ class GenInputPicker_formGroup extends GenerateEntity {
 
     /*if($field->isUniqueMultiple()) {
       $fieldsUniqueNames = [];
-      foreach($field->getEntity()->getFieldsUniqueMultiple() as $fieldUnique) {
-        array_push($fieldsUniqueNames, $fieldUnique->getName());
+      foreach($field->getEntity()->uniqueMultiple as $fieldNameUnique) {
+        array_push($fieldsUniqueNames, $fieldNameUnique);
       }
 
       $f = "'" . implode("', '", $fieldsUniqueNames) . "'";

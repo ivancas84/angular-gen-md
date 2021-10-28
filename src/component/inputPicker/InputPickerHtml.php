@@ -16,7 +16,7 @@ class GenInputPickerHtml extends GenerateFileEntity {
 
 
   public function generateCode() {
-    if(!$this->entity->getFieldsUniqueMultiple()) return "";
+    if(!$this->entity->uniqueMultiple) return "";
     $this->start();
     $this->nf();
     $this->fk();
@@ -95,7 +95,7 @@ class GenInputPickerHtml extends GenerateFileEntity {
 
 
   protected function textarea(Field $field) {
-    $this->string .= "  <core-input-textarea [field]=\"" . $field->getName("xxYy") . "\" [title]=\"'" . $field->getName("Xx Yy") . "'\" fxFlex=\"auto\" fxLayoutAlign=\"center center\"></core-input-textarea>
+    $this->string .= "  <core-textarea [field]=\"" . $field->getName("xxYy") . "\" [title]=\"'" . $field->getName("Xx Yy") . "'\" fxFlex=\"auto\" fxLayoutAlign=\"center center\"></core-textarea>
 ";
   }
 

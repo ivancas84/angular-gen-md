@@ -13,7 +13,7 @@ class GenInputPickerTs extends GenerateFileEntity {
   }
 
   protected function generateCode(){
-    if(!$this->entity->getFieldsUniqueMultiple()) return "";
+    if(!$this->entity->uniqueMultiple) return "";
     $this->start();
     $this->constructor();
     $this->formGroup();
@@ -50,7 +50,8 @@ export class " . $this->entity->getName("XxYy") . "InputPickerComponent extends 
   }
 
   protected function getters(){
-    foreach($this->entity->getFieldsUniqueMultiple() as $field){
+    foreach($this->entity->uniqueMultiple as $fieldName){
+      $field = $this->container->getField($this->getName(), $fieldName);
       $this->string .= "  get {$field->getName('xxYy')}() { return this.form.get('{$field->getName()}')}
 ";
     }
