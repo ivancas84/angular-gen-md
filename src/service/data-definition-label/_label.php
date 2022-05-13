@@ -32,7 +32,8 @@ class GenDataDefinitionLabel_label extends Generate {
   }
 
   protected function end(){
-    $this->string .= "    }
+    $this->string .= "      default: return of(\"\");
+    }
   }
 ";
   }
