@@ -36,7 +36,7 @@ class EntityDataDefinition_Label extends GenerateEntity {
   protected function start(){
     $this->string .= "  label (id: string | number): string {
     var row = this.stg.getItem(this.entity + id);
-    if(!row) return null;
+    if(!row) return "";
 
     let ret = \"\";
 ";
