@@ -28,22 +28,22 @@ export class DataDefinitionLabelService extends _DataDefinitionLabelService{ }
  * return this.dd.get('curso', id).pipe(
  *  switchMap(
  *   curso => {
- *     return this.dd.getConnection(curso,'asignatura','asignatura',{asignatura:'nombre'})
+ *     return this.dd.getConnection(curso,'asignatura',{asignatura:'nombre'}, 'asignatura',)
  *   }
  * ),
  * switchMap(
  *   curso => {
- *     return this.dd.getConnection(curso,'comision','comision',{division:'division',sede:'sede',planificacion:'planificacion'})
+ *     return this.dd.getConnection(curso,'comision',{division:'division',sede:'sede',planificacion:'planificacion'}, 'comision')
  *   }
  * ),
  * switchMap(
  *   curso => {
- *     return this.dd.getConnection(curso,'planificacion','planificacion',{anio:'anio',semestre:'semestre'})
+ *     return this.dd.getConnection(curso,'planificacion',{anio:'anio',semestre:'semestre'},'planificacion')
  *   }
  * ),
  * switchMap(
  *   curso => {
- *     return this.dd.getConnection(curso,'sede','sede',{numero_sede:'numero'})
+ *     return this.dd.getConnection(curso,'sede',{numero_sede:'numero'},'sede')
  *   }
  * ),
  * map(
