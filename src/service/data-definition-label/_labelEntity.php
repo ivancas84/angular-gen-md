@@ -26,7 +26,7 @@ class GenDataDefinitionLabel_labelEntity extends GenerateEntity {
  }
 
   protected function start(){
-    $this->string .= "  label" . $this->entity->getName("XxYy"). "(id: string): Observable<any> {
+    $this->string .= "  label" . $this->entity->getName("XxYy"). "(id: string): Observable<string> {
     return this.dd.get(\"" . $this->entity->getName(). "\", id).pipe(
       switchMap(
         row => {
@@ -55,7 +55,7 @@ class GenDataDefinitionLabel_labelEntity extends GenerateEntity {
         }
       ),
       map(
-        response => { return (!response)? null : response.join(\" \"); }
+        response => { return (!response)? \"\" : response.join(\" \"); }
       )
     );
   }
