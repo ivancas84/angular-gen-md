@@ -30,7 +30,7 @@ class GenDataDefinitionLabel_labelEntityRow extends GenerateEntity {
 
   protected function start(){
     $this->string .= "  label" . $this->entity->getName("XxYy"). "Row (row: any): string {
-    if(!row) return null;
+    if(!row) return \"\";
 
     let ret = \"\";
 ";
